@@ -42,8 +42,8 @@ function MainScreen({navigation}) {
           inactiveTintColor: 'gray',
         }}>
         <Tabs.Screen name="Home" component={HomeScreen} />
-        <Tabs.Screen name="Chat" component={ChatScreen} />
         <Tabs.Screen name="Market" component={MarketScreen} />
+        <Tabs.Screen name="Chat" component={ChatScreen} />
         <Tabs.Screen name="My" component={MyScreen} />
       </Tabs.Navigator>
     </NavigationContainer>
