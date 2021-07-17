@@ -245,8 +245,8 @@ export default function HomeScreen({route, navigation}) {
             style={styles.mapView}
             provider={PROVIDER_GOOGLE}
             region={{
-              latitude: location.latitude,
-              longitude: location.longitude,
+              latitude: 36.372088,
+              longitude: 127.361997,
               latitudeDelta: 0.0322,
               longitudeDelta: 0.0322,
             }}>
