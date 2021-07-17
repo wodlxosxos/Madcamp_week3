@@ -2,9 +2,11 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const BikeInfo = ({items}) => {
+const BikeInfo = ({items, navigation}) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate('HomeBike')}>
       <Image
         style={styles.bikeImage}
         source={require('../Images/base_bicycle_img.jpg')}
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
     margin: 5,
     borderLeftWidth: 1,
     paddingLeft: 5,
-    height: '70%',
+    height: '90%',
     width: '100%',
   },
   nameText: {
@@ -55,7 +57,12 @@ const styles = StyleSheet.create({
     width: '70%',
   },
   feeHour: {flex: 1, justifyContent: 'center', alignItems: 'center'},
-  feeDay: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+  feeDay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderLeftWidth: 1,
+  },
 });
 
 export default BikeInfo;

@@ -15,6 +15,7 @@ import Geolocation from 'react-native-geolocation-service';
 import BikeInfo from '../../components/BikeInfo';
 
 const markerIcon = require('../../Images/bicycle_icon.png');
+const curIcon = require('../../Images/cur_pos_icon.png');
 const data = [
   {
     title: '참여중인 사람',
@@ -105,14 +106,14 @@ async function requestPermission() {
 }
 
 export default function HomeScreen({route, navigation}) {
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState({lat: 0, lng: 0});
   useEffect(() => {
     requestPermission().then(result => {
       console.log({result});
       if (result === 'granted') {
         Geolocation.getCurrentPosition(
           pos => {
-            setLocation(pos.coords);
+            setLocation({lat: pos.coords.latitude, lng: pos.coords.longitude});
           },
           error => {
             console.log(error);
@@ -136,6 +137,7 @@ export default function HomeScreen({route, navigation}) {
   const [endSelDay, setEndSelDay] = useState(curDate.getDate());
   const [endSelHour, setEndSelHour] = useState(curDate.getUTCHours() + 9);
   const [endSelMin, setEndSelMin] = useState(curDate.getUTCMinutes());
+
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -245,11 +247,15 @@ export default function HomeScreen({route, navigation}) {
             style={styles.mapView}
             provider={PROVIDER_GOOGLE}
             region={{
-              latitude: 36.372088,
-              longitude: 127.361997,
-              latitudeDelta: 0.0322,
-              longitudeDelta: 0.0322,
+              latitude: location.lat,
+              longitude: location.lng,
+              latitudeDelta: 0.0101,
+              longitudeDelta: 0.0101,
             }}>
+            <Marker
+              coordinate={{latitude: location.lat, longitude: location.lng}}
+              icon={curIcon}
+            />
             <Marker
               coordinate={{latitude: 36.3664798, longitude: 127.3612639}}
               title={'응용공학동'}
@@ -302,7 +308,9 @@ export default function HomeScreen({route, navigation}) {
             nestedScrollEnabled
             sections={data}
             keyExtractor={(item, index) => item + index}
-            renderItem={({item}) => <BikeInfo items={item} />}
+            renderItem={({item}) => (
+              <BikeInfo items={item} navigation={navigation} />
+            )}
           />
         </View>
       </ScrollView>
@@ -392,5 +400,6 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 12,
+    fontFamily: 'SpoqaHanSansNeo-Medium',
   },
 });
