@@ -43,11 +43,9 @@ const BikeInfo = ({items, navigation, info}) => {
                 성별 : {items.userGender}
               </Text>
               <Text style={styles.mainModalText}>학번 : {items.userSID}</Text>
+              <Text style={styles.mainModalText}>평점 : {items.rating}</Text>
               <Text style={styles.mainModalText}>
-                시간당 요금 : {items.hourFee} 원
-              </Text>
-              <Text style={styles.mainModalText}>
-                일당 요금 : {items.dayFee} 원
+                시간당 요금 : {items.hourFee} 원 / 일당 요금 : {items.dayFee} 원
               </Text>
               <Text style={styles.mainModalDurationText}>이용기간</Text>
               <View style={styles.durationContainer}>
