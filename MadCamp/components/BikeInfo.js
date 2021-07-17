@@ -1,12 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const BikeInfo = ({items, navigation}) => {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate('HomeBike')}>
+      onPress={() =>
+        navigation.navigate('HomeBike', {
+          userName: items.userName,
+          userGender: items.userGender,
+          userSID: items.userSID,
+          hourFee: items.hourFee,
+          dayFee: items.dayFee,
+          rating: items.rating,
+        })
+      }>
       <Image
         style={styles.bikeImage}
         source={require('../Images/base_bicycle_img.jpg')}
@@ -15,7 +25,8 @@ const BikeInfo = ({items, navigation}) => {
         <Text style={styles.nameText}>
           이름 : {items.userName} ({items.userGender})
         </Text>
-        <Text style={styles.nameText}>학번 : {items.userID}</Text>
+        <Text style={styles.nameText}>학번 : {items.userSID}</Text>
+        <Text style={styles.nameText}>평점 : {items.rating}</Text>
         <View style={styles.feeContainer}>
           <View style={styles.feeHour}>
             <Text style={styles.nameText}>시간당 : {items.hourFee}</Text>
