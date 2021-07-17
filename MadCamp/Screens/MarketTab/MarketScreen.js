@@ -8,10 +8,11 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
+import {useEffect} from 'react/cjs/react.production.min';
 import BikeItem from '../../Item/BikeItem';
 
 export default function MarketScreen({route, navigation}) {
-  const data = [
+  const [data, setData] = useState([
     //key, title: 제목, price: 가격, detail: 상세정보, reg: item 등록 시간
     {
       key: 1,
@@ -103,7 +104,8 @@ export default function MarketScreen({route, navigation}) {
       itemReg: 10,
       heartClick: false,
     },
-  ];
+  ]);
+
   return (
     <SafeAreaView style={styles.wrap}>
       <View style={styles.header}>

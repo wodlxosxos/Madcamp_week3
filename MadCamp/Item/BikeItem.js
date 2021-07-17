@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const BikeItem = ({items}) => {
+  const [heart, setHeart] = useState(false);
+  useEffect(() => {
+    items.heartClick = !items.heartClick;
+  });
+
   return (
     <TouchableOpacity style={styles.container}>
       <Image style={styles.bikeImage} source={require('../Image/b10.jpg')} />
@@ -11,10 +16,10 @@ const BikeItem = ({items}) => {
         <Text style={styles.priceText}>{items.itemPrice}</Text>
         <TouchableOpacity
           style={styles.iconContainer}
-          onPress={() => alert('저장되었습니다')}>
+          onPress={() => setHeart(!heart)}>
           <Icon
             //style={styles.icon}
-            name="heart-outline"
+            name={items.heartClick ? 'heart' : 'heart-outline'}
             color="#003F5C"
             size={25}></Icon>
         </TouchableOpacity>
