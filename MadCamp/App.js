@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import SignHome from './Login/SignHome';
-import HomeScreen from './Screens/HomeTab/HomeScreen';
+import HomeBase from './Screens/HomeTab/HomeBase';
 import ChatScreen from './Screens/ChatTab/ChatScreen';
 import MarketScreen from './Screens/MarketTab/MarketScreen';
 import MyScreen from './Screens/MyTab/MyScreen';
@@ -41,7 +41,7 @@ function MainScreen({navigation}) {
           activeTintColor: 'black',
           inactiveTintColor: 'gray',
         }}>
-        <Tabs.Screen name="Home" component={HomeScreen} />
+        <Tabs.Screen name="Home" component={HomeBase} />
         <Tabs.Screen name="Market" component={MarketScreen} />
         <Tabs.Screen name="Chat" component={ChatScreen} />
         <Tabs.Screen name="My" component={MyScreen} />

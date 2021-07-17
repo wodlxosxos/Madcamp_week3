@@ -1,16 +1,128 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   ScrollView,
+  SectionList,
   ToastAndroid,
+  PermissionsAndroid,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import Geolocation from 'react-native-geolocation-service';
+import BikeInfo from '../../components/BikeInfo';
+
+const markerIcon = require('../../Images/bicycle_icon.png');
+const data = [
+  {
+    title: '참여중인 사람',
+
+    data: [
+      {
+        userName: '정승안',
+        userGender: '남자',
+        userID: 18,
+        hourFee: 400,
+        dayFee: 1200,
+      },
+      {
+        userName: '정승안',
+        userGender: '남자',
+        userID: 19,
+        hourFee: 400,
+        dayFee: 1200,
+      },
+      {
+        userName: '정승안',
+        userGender: '남자',
+        userID: 18,
+        hourFee: 400,
+        dayFee: 1200,
+      },
+      {
+        userName: '정승안',
+        userGender: '남자',
+        userID: 20,
+        hourFee: 400,
+        dayFee: 1200,
+      },
+      {
+        userName: '정승안',
+        userGender: '남자',
+        userID: 22,
+        hourFee: 400,
+        dayFee: 1200,
+      },
+      {
+        userName: '정승안',
+        userGender: '남자',
+        userID: 18,
+        hourFee: 400,
+        dayFee: 1200,
+      },
+      {
+        userName: '정승안',
+        userGender: '남자',
+        userID: 21,
+        hourFee: 400,
+        dayFee: 1200,
+      },
+      {
+        userName: '정승안',
+        userGender: '남자',
+        userID: 18,
+        hourFee: 400,
+        dayFee: 1200,
+      },
+      {
+        userName: '정승안',
+        userGender: '남자',
+        userID: 18,
+        hourFee: 400,
+        dayFee: 1200,
+      },
+      {
+        userName: '정승안',
+        userGender: '남자',
+        userID: 22,
+        hourFee: 400,
+        dayFee: 1200,
+      },
+    ],
+  },
+];
+
+async function requestPermission() {
+  try {
+    return await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export default function HomeScreen({route, navigation}) {
+  const [location, setLocation] = useState();
+  useEffect(() => {
+    requestPermission().then(result => {
+      console.log({result});
+      if (result === 'granted') {
+        Geolocation.getCurrentPosition(
+          pos => {
+            setLocation(pos.coords);
+          },
+          error => {
+            console.log(error);
+          },
+          {enableHighAccuracy: true, timeout: 3600, maximumAge: 3600},
+        );
+      }
+    });
+  }, []);
+
   const curDate = new Date();
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
@@ -24,8 +136,6 @@ export default function HomeScreen({route, navigation}) {
   const [endSelDay, setEndSelDay] = useState(curDate.getDate());
   const [endSelHour, setEndSelHour] = useState(curDate.getUTCHours() + 9);
   const [endSelMin, setEndSelMin] = useState(curDate.getUTCMinutes());
-  const [lat, setLat] = useState(36.36311);
-  const [lng, setLng] = useState(127.35489);
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -38,6 +148,7 @@ export default function HomeScreen({route, navigation}) {
   const hideTimePicker = () => {
     setTimePickerVisibility(false);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.topTabContainer}>
@@ -134,17 +245,65 @@ export default function HomeScreen({route, navigation}) {
             style={styles.mapView}
             provider={PROVIDER_GOOGLE}
             region={{
-              latitude: lat,
-              longitude: lng,
+              latitude: location.latitude,
+              longitude: location.longitude,
               latitudeDelta: 0.0322,
               longitudeDelta: 0.0322,
-            }}
-          />
+            }}>
+            <Marker
+              coordinate={{latitude: 36.3664798, longitude: 127.3612639}}
+              title={'응용공학동'}
+              icon={markerIcon}
+              onCalloutPress={e => console.log(e)}
+            />
+            <Marker
+              coordinate={{latitude: 36.3636441, longitude: 127.3591617}}
+              title={'쪽문'}
+              icon={markerIcon}
+              onCalloutPress={e => console.log(e)}
+            />
+            <Marker
+              coordinate={{latitude: 36.3708546, longitude: 127.3665032}}
+              title={'세종관'}
+              icon={markerIcon}
+              onCalloutPress={e => console.log(e)}
+            />
+            <Marker
+              coordinate={{latitude: 36.3706964, longitude: 127.3624517}}
+              title={'창의학습관'}
+              icon={markerIcon}
+              onCalloutPress={e => console.log(e)}
+            />
+            <Marker
+              coordinate={{latitude: 36.37434, longitude: 127.36566}}
+              title={'N1'}
+              icon={markerIcon}
+              onCalloutPress={e => console.log(e)}
+            />
+            <Marker
+              coordinate={{latitude: 36.3705, longitude: 127.35582}}
+              title={'미르관/나래관'}
+              icon={markerIcon}
+              onCalloutPress={e => console.log(e)}
+            />
+            <Marker
+              coordinate={{latitude: 36.3734349, longitude: 127.3573793}}
+              title={'아름관/소망관/사랑관'}
+              icon={markerIcon}
+              onCalloutPress={e => console.log(e)}
+            />
+          </MapView>
         </View>
         <View style={styles.bikeContainer}>
           <View style={styles.containerTitle}>
-            <Text> | 대여 가능한 자전거 | </Text>
+            <Text style={styles.topTitle}> | 대여 가능한 자전거 | </Text>
           </View>
+          <SectionList
+            nestedScrollEnabled
+            sections={data}
+            keyExtractor={(item, index) => item + index}
+            renderItem={({item}) => <BikeInfo items={item} />}
+          />
         </View>
       </ScrollView>
     </View>
@@ -227,6 +386,9 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  topTitle: {
+    fontFamily: 'SpoqaHanSansNeo-Bold',
   },
   dateText: {
     fontSize: 12,
