@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import {useEffect} from 'react/cjs/react.production.min';
 import BikeItem from '../../Item/BikeItem';
+import FAB from 'react-native-fab';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function MarketScreen({route, navigation}) {
   const [data, setData] = useState([
@@ -114,6 +116,15 @@ export default function MarketScreen({route, navigation}) {
       <FlatList
         data={data}
         renderItem={({item}) => <BikeItem items={item} />}
+      />
+      <FAB
+        buttonColor="#10569B"
+        iconTextColor="white"
+        onClickAction={() => {
+          alert('FAB pressed');
+        }}
+        visible={true}
+        iconTextComponent={<Icon name="add-outline" size={20} />}
       />
     </SafeAreaView>
   );

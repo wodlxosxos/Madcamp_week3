@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const BikeItem = ({items}) => {
   const [heart, setHeart] = useState(false);
   useEffect(() => {
+    //클릭 시에만 되게 조건 주기
     items.heartClick = !items.heartClick;
   });
 
@@ -20,7 +21,7 @@ const BikeItem = ({items}) => {
           <Icon
             //style={styles.icon}
             name={items.heartClick ? 'heart' : 'heart-outline'}
-            color="#003F5C"
+            color="#10569B"
             size={25}></Icon>
         </TouchableOpacity>
       </View>
