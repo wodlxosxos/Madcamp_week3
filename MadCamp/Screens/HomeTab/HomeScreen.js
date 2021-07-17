@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   SectionList,
-  ToastAndroid,
+  LogBox,
   PermissionsAndroid,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -24,72 +24,82 @@ const data = [
       {
         userName: '정승안',
         userGender: '남자',
-        userID: 18,
+        userSID: 18,
         hourFee: 400,
         dayFee: 1200,
+        rating: 4.2,
       },
       {
         userName: '정승안',
         userGender: '남자',
-        userID: 19,
+        userSID: 19,
         hourFee: 400,
         dayFee: 1200,
+        rating: 4.2,
       },
       {
         userName: '정승안',
         userGender: '남자',
-        userID: 18,
+        userSID: 18,
         hourFee: 400,
         dayFee: 1200,
+        rating: 4.2,
       },
       {
         userName: '정승안',
         userGender: '남자',
-        userID: 20,
+        userSID: 20,
         hourFee: 400,
         dayFee: 1200,
+        rating: 4.2,
       },
       {
         userName: '정승안',
         userGender: '남자',
-        userID: 22,
+        userSID: 22,
         hourFee: 400,
         dayFee: 1200,
+        rating: 4.2,
       },
       {
         userName: '정승안',
         userGender: '남자',
-        userID: 18,
+        userSID: 18,
         hourFee: 400,
         dayFee: 1200,
+        rating: 4.2,
       },
       {
         userName: '정승안',
         userGender: '남자',
-        userID: 21,
+        userSID: 21,
         hourFee: 400,
         dayFee: 1200,
+        rating: 4.2,
       },
       {
         userName: '정승안',
         userGender: '남자',
-        userID: 18,
+        userSID: 18,
         hourFee: 400,
         dayFee: 1200,
+        rating: 4.2,
       },
       {
         userName: '정승안',
         userGender: '남자',
-        userID: 18,
+        userSID: 18,
         hourFee: 400,
         dayFee: 1200,
+        rating: 4.2,
       },
       {
         userName: '정승안',
         userGender: '남자',
-        userID: 22,
+        userSID: 22,
         hourFee: 400,
         dayFee: 1200,
+        rating: 4.2,
       },
     ],
   },
@@ -108,6 +118,7 @@ async function requestPermission() {
 export default function HomeScreen({route, navigation}) {
   const [location, setLocation] = useState({lat: 0, lng: 0});
   useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     requestPermission().then(result => {
       console.log({result});
       if (result === 'granted') {
@@ -308,7 +319,22 @@ export default function HomeScreen({route, navigation}) {
             sections={data}
             keyExtractor={(item, index) => item + index}
             renderItem={({item}) => (
-              <BikeInfo items={item} navigation={navigation} />
+              <BikeInfo
+                items={item}
+                navigation={navigation}
+                info={{
+                  strYear: strSelYear,
+                  strMonth: strSelMonth + 1,
+                  strDay: strSelDay,
+                  strHour: strSelHour,
+                  strMin: strSelMin,
+                  endYear: endSelYear,
+                  endMonth: endSelMonth + 1,
+                  endDay: endSelDay,
+                  endHour: endSelHour,
+                  endMin: endSelMin,
+                }}
+              />
             )}
           />
         </View>
