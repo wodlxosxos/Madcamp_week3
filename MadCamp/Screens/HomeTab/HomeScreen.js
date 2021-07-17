@@ -246,16 +246,15 @@ export default function HomeScreen({route, navigation}) {
           <MapView
             style={styles.mapView}
             provider={PROVIDER_GOOGLE}
+            userLocationUpdateInterval={500}
+            moveOnMarkerPress={false}
+            showsUserLocation={true}
             region={{
               latitude: location.lat,
               longitude: location.lng,
               latitudeDelta: 0.0101,
               longitudeDelta: 0.0101,
             }}>
-            <Marker
-              coordinate={{latitude: location.lat, longitude: location.lng}}
-              icon={curIcon}
-            />
             <Marker
               coordinate={{latitude: 36.3664798, longitude: 127.3612639}}
               title={'응용공학동'}
