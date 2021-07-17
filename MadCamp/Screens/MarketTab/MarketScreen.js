@@ -20,6 +20,7 @@ export default function MarketScreen({route, navigation}) {
       itemDetail:
         '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
       itemReg: 10,
+      heartClick: false,
     },
     {
       key: 2,
@@ -28,6 +29,7 @@ export default function MarketScreen({route, navigation}) {
       itemDetail:
         '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
       itemReg: 10,
+      heartClick: false,
     },
     {
       key: 3,
@@ -36,6 +38,7 @@ export default function MarketScreen({route, navigation}) {
       itemDetail:
         '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
       itemReg: 10,
+      heartClick: false,
     },
     {
       key: 4,
@@ -44,6 +47,7 @@ export default function MarketScreen({route, navigation}) {
       itemDetail:
         '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
       itemReg: 10,
+      heartClick: false,
     },
     {
       key: 5,
@@ -52,6 +56,7 @@ export default function MarketScreen({route, navigation}) {
       itemDetail:
         '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
       itemReg: 10,
+      heartClick: false,
     },
     {
       key: 6,
@@ -60,6 +65,7 @@ export default function MarketScreen({route, navigation}) {
       itemDetail:
         '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
       itemReg: 10,
+      heartClick: false,
     },
     {
       key: 7,
@@ -68,6 +74,7 @@ export default function MarketScreen({route, navigation}) {
       itemDetail:
         '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
       itemReg: 10,
+      heartClick: false,
     },
     {
       key: 8,
@@ -76,6 +83,7 @@ export default function MarketScreen({route, navigation}) {
       itemDetail:
         '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
       itemReg: 10,
+      heartClick: false,
     },
     {
       key: 9,
@@ -84,6 +92,7 @@ export default function MarketScreen({route, navigation}) {
       itemDetail:
         '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
       itemReg: 10,
+      heartClick: false,
     },
     {
       key: 10,
@@ -92,6 +101,7 @@ export default function MarketScreen({route, navigation}) {
       itemDetail:
         '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
       itemReg: 10,
+      heartClick: false,
     },
   ];
   return (

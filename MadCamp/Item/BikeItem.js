@@ -9,6 +9,15 @@ const BikeItem = ({items}) => {
       <View style={styles.infoContainer}>
         <Text style={styles.titleText}>{items.itemTitle}</Text>
         <Text style={styles.priceText}>{items.itemPrice}</Text>
+        <TouchableOpacity
+          style={styles.iconContainer}
+          onPress={() => alert('저장되었습니다')}>
+          <Icon
+            //style={styles.icon}
+            name="heart-outline"
+            color="#003F5C"
+            size={25}></Icon>
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -44,6 +53,15 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  icon: {
+    padding: 10,
+  },
+  iconContainer: {
+    backgroundColor: 'white',
+    alignItems: 'center',
+    marginLeft: 50,
+    marginTop: 35,
   },
 });
 
