@@ -319,7 +319,22 @@ export default function HomeScreen({route, navigation}) {
             sections={data}
             keyExtractor={(item, index) => item + index}
             renderItem={({item}) => (
-              <BikeInfo items={item} navigation={navigation} />
+              <BikeInfo
+                items={item}
+                navigation={navigation}
+                info={{
+                  strYear: strSelYear,
+                  strMonth: strSelMonth + 1,
+                  strDay: strSelDay,
+                  strHour: strSelHour,
+                  strMin: strSelMin,
+                  endYear: endSelYear,
+                  endMonth: endSelMonth + 1,
+                  endDay: endSelDay,
+                  endHour: endSelHour,
+                  endMin: endSelMin,
+                }}
+              />
             )}
           />
         </View>
