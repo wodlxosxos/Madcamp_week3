@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,72 +8,104 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
+import BikeItem from '../../Item/BikeItem';
 
 export default function MarketScreen({route, navigation}) {
+  const data = [
+    //key, title: 제목, price: 가격, detail: 상세정보, reg: item 등록 시간
+    {
+      key: 1,
+      itemTitle: '30년된 자전거 팝니다',
+      itemPrice: '300,000원',
+      itemDetail:
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+      itemReg: 10,
+    },
+    {
+      key: 2,
+      itemTitle: '30년된 자전거 팝니다',
+      itemPrice: '300,000원',
+      itemDetail:
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+      itemReg: 10,
+    },
+    {
+      key: 3,
+      itemTitle: '30년된 자전거 팝니다',
+      itemPrice: '300,000원',
+      itemDetail:
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+      itemReg: 10,
+    },
+    {
+      key: 4,
+      itemTitle: '30년된 자전거 팝니다',
+      itemPrice: '300,000원',
+      itemDetail:
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+      itemReg: 10,
+    },
+    {
+      key: 5,
+      itemTitle: '30년된 자전거 팝니다',
+      itemPrice: '300,000원',
+      itemDetail:
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+      itemReg: 10,
+    },
+    {
+      key: 6,
+      itemTitle: '30년된 자전거 팝니다',
+      itemPrice: '300,000원',
+      itemDetail:
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+      itemReg: 10,
+    },
+    {
+      key: 7,
+      itemTitle: '30년된 자전거 팝니다',
+      itemPrice: '300,000원',
+      itemDetail:
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+      itemReg: 10,
+    },
+    {
+      key: 8,
+      itemTitle: '30년된 자전거 팝니다',
+      itemPrice: '300,000원',
+      itemDetail:
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+      itemReg: 10,
+    },
+    {
+      key: 9,
+      itemTitle: '30년된 자전거 팝니다',
+      itemPrice: '300,000원',
+      itemDetail:
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+      itemReg: 10,
+    },
+    {
+      key: 10,
+      itemTitle: '30년된 자전거 팝니다',
+      itemPrice: '300,000원',
+      itemDetail:
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+      itemReg: 10,
+    },
+  ];
   return (
     <SafeAreaView style={styles.wrap}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Header</Text>
+      </View>
       <FlatList
         data={data}
-        ListHeaderComponent={() => (
-          <View style={styles.header}>
-            <Text style={styles.headerText}>Header</Text>
-          </View>
-        )}
-        renderItem={({item}) => (
-          <Image style={styles.image} source={{uri: item.uri}} />
-        )}
-        columnWrapperStyle={styles.imageRow}
-        numColumns={3}
+        renderItem={({item}) => <BikeItem items={item} />}
       />
     </SafeAreaView>
   );
 }
-
-const data = [
-  {
-    id: 1,
-    uri: 'https://i.ytimg.com/vi/ZYvvmsrDOj8/maxresdefault.jpg',
-  },
-  {
-    id: 2,
-    uri: 'https://i.ytimg.com/vi/ZYvvmsrDOj8/maxresdefault.jpg',
-  },
-  {
-    id: 3,
-    uri: 'https://i.ytimg.com/vi/ZYvvmsrDOj8/maxresdefault.jpg',
-  },
-  {
-    id: 4,
-    uri: 'https://i.ytimg.com/vi/ZYvvmsrDOj8/maxresdefault.jpg',
-  },
-];
-
-const data1 = [
-  {key: '0', data: 'aaa'},
-  {key: '1', data: 'bbb'},
-  {key: '2', data: 'ccc'},
-  {key: '3', data: 'ddd'},
-  {key: '4', data: 'aaa'},
-  {key: '5', data: 'bbb'},
-  {key: '6', data: 'ccc'},
-  {key: '7', data: 'ddd'},
-  {key: '8', data: 'aaa'},
-  {key: '9', data: 'bbb'},
-  {key: '10', data: 'ccc'},
-  {key: '11', data: 'ddd'},
-];
-
-const data2 = [
-  {name: 'sam', message: 'Hello world', img: require('./images/b1.jpg')},
-  /*
-  {name: 'robin', message: 'Hello rn', img: require('./images/b2.jpg')},
-  {name: 'kim', message: 'Hello react', img: require('./images/b3.jpg')},
-  {name: 'hong', message: 'Hello hybrid', img: require('./images/b4.jpg')},
-  {name: 'rosa', message: 'Hello ios', img: require('./images/b5.jpg')},
-  {name: 'lee', message: 'Hello rom', img: require('./images/b7.jpg')},
-  {name: 'jack', message: 'Hello tom', img: require('./images/b8.jpg')},
-  {name: 'moana', message: 'Hello native', img: require('./images/b9.jpg')},*/
-];
 
 const styles = StyleSheet.create({
   wrap: {
@@ -81,19 +113,13 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 60,
-    //borderBottomWidth: 1,
+    borderBottomWidth: 0.2,
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
   },
   headerText: {
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  imageRow: {
-    justifyContent: 'space-between',
-  },
-  image: {
-    width: 110,
-    height: 110,
   },
 });
