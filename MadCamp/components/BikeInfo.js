@@ -7,8 +7,6 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import HomeBike from '../Screens/HomeTab/HomeBike';
 
 const BikeInfo = ({items, navigation, info}) => {
   const [modalVisible, setModalVisible] = useState(false);

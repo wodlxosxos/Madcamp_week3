@@ -2,8 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from './HomeScreen';
-import HomeBike from './HomeBike';
+import MyScreen from './MyScreen';
 import {
   Button,
   StyleSheet,
@@ -15,15 +14,14 @@ import {
 
 const signStack = createStackNavigator();
 
-function HomeBase({navigation}) {
+function MyHome({navigation}) {
   return (
     <signStack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="HomeMain">
-      <signStack.Screen name="HomeMain" component={HomeScreen} />
-      <signStack.Screen name="HomeBike" component={HomeBike} />
+      initialRouteName="MyScreen">
+      <signStack.Screen name="MyScreen" component={MyScreen} />
     </signStack.Navigator>
   );
 }
 
-export default HomeBase;
+export default MyHome;

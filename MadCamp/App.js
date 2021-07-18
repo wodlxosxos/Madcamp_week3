@@ -4,11 +4,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import SignHome from './Login/SignHome';
-import HomeBase from './Screens/HomeTab/HomeBase';
 import ChatScreen from './Screens/ChatTab/ChatScreen';
 import MarketScreen from './Screens/MarketTab/MarketScreen';
-import MyScreen from './Screens/MyTab/MyScreen';
+import MyHome from './Screens/MyTab/MyHome';
 import Icon from 'react-native-vector-icons/Ionicons';
+import HomeScreen from './Screens/HomeTab/HomeScreen';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -41,10 +41,10 @@ function MainScreen({navigation}) {
           activeTintColor: 'black',
           inactiveTintColor: 'gray',
         }}>
-        <Tabs.Screen name="Home" component={HomeBase} />
+        <Tabs.Screen name="Home" component={HomeScreen} />
         <Tabs.Screen name="Market" component={MarketScreen} />
         <Tabs.Screen name="Chat" component={ChatScreen} />
-        <Tabs.Screen name="My" component={MyScreen} />
+        <Tabs.Screen name="My" component={MyHome} />
       </Tabs.Navigator>
     </NavigationContainer>
   );
