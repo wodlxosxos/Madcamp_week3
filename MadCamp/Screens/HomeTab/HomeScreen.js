@@ -13,6 +13,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import BikeInfo from '../../components/BikeInfo';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const markerIcon = require('../../Images/bicycleicon.png');
 const curIcon = require('../../Images/cur_pos_icon.png');
@@ -165,10 +166,10 @@ export default function HomeScreen({route, navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.topTabContainer}>
-        <View style={styles.strContainer}>
-          <View style={styles.topTextContainer}>
-            <Text style={styles.topText}>대여</Text>
-          </View>
+        <View style={styles.topTextContainer}>
+          <Text style={styles.topText}>대여</Text>
+        </View>
+        <View style={styles.startContainer}>
           <TouchableOpacity
             onPress={showDatePicker}
             style={styles.strDateContainer}>
@@ -188,7 +189,7 @@ export default function HomeScreen({route, navigation}) {
           />
           <TouchableOpacity
             onPress={showTimePicker}
-            style={styles.strDateContainer}>
+            style={styles.endDateContainer}>
             <Text style={styles.dateText}>
               {strSelHour}: {strSelMin}
             </Text>
@@ -211,11 +212,16 @@ export default function HomeScreen({route, navigation}) {
             onCancel={hideTimePicker}
           />
         </View>
-        <View style={styles.endContainer}>
+        <Icon
+          style={styles.iconContainer}
+          name="swap-horizontal-outline"
+          color="#10569B"
+          size={25}></Icon>
+        <View style={styles.endendContainer}>
           <TouchableOpacity
             onPress={showDatePicker}
-            style={styles.endDateContainer}>
-            <Text style={styles.dateText}>{endSelMonth + 1}/</Text>
+            style={styles.strDateContainer}>
+            <Text style={styles.dateText}>{endSelMonth + 1}/ </Text>
             <Text style={styles.dateText}>{endSelDay}</Text>
           </TouchableOpacity>
           <DateTimePickerModal
@@ -360,48 +366,69 @@ const styles = StyleSheet.create({
     //backgroundColor: 'black',
   },
   topTextContainer: {
+    height: 55,
     flex: 1,
-    flexDirection: 'row',
     backgroundColor: 'white',
+    justifyContent: 'center',
     alignItems: 'flex-start',
+    marginLeft: 15,
+    marginRight: 15,
   },
   topText: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  startContainer: {
+    flex: 2,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    margin: 1,
+    borderWidth: 1,
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  endendContainer: {
+    flex: 2,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    margin: 1,
+    borderWidth: 1,
+    borderRadius: 10,
+    marginVertical: 10,
+    marginRight: 10,
+    //borderRadius: 10,
   },
   strContainer: {
     flex: 1,
     flexDirection: 'row',
     backgroundColor: 'white',
     margin: 1,
-    borderRadius: 10,
+    //borderRadius: 10,
   },
   strDateContainer: {
-    borderWidth: 1,
     width: '45%',
-    borderRadius: 15,
     marginVertical: 10,
     marginHorizontal: 3,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    borderRightWidth: 1,
   },
   endContainer: {
     flex: 1,
     flexDirection: 'row',
     backgroundColor: 'white',
     margin: 1,
-    borderRadius: 10,
   },
   endDateContainer: {
-    borderWidth: 1,
     width: '45%',
-    borderRadius: 15,
     marginVertical: 10,
-    marginHorizontal: 3,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+  },
+  iconContainer: {
+    marginTop: 15,
   },
   scrollContainer: {
     height: '90%',
@@ -419,9 +446,6 @@ const styles = StyleSheet.create({
   bikeContainer: {
     height: 600,
     width: '100%',
-    //borderRadius: 25,
-    //borderColor: 'black',
-    //borderWidth: 1,
     padding: 7,
     marginHorizontal: 2,
     marginBottom: 4,
