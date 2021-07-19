@@ -1,26 +1,29 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {NavigationContainer} from '@react-navigation/native';
 
-const BikeItem = ({items}) => {
+const BikeItem = ({route, navigation}) => {
   const [heart, setHeart] = useState(false);
   useEffect(() => {
     //클릭 시에만 되게 조건 주기
-    items.heartClick = !items.heartClick;
+    route.heartClick = !route.heartClick;
   });
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate('디테일', route)}>
       <Image style={styles.bikeImage} source={require('../Image/b10.jpg')} />
       <View style={styles.infoContainer}>
-        <Text style={styles.titleText}>{items.itemTitle}</Text>
-        <Text style={styles.priceText}>{items.itemPrice}</Text>
+        <Text style={styles.titleText}>{route.itemTitle}</Text>
+        <Text style={styles.priceText}>{route.itemPrice}</Text>
         <TouchableOpacity
           style={styles.iconContainer}
           onPress={() => setHeart(!heart)}>
           <Icon
             //style={styles.icon}
-            name={items.heartClick ? 'heart' : 'heart-outline'}
+            name={route.heartClick ? 'heart' : 'heart-outline'}
             color="#10569B"
             size={25}></Icon>
         </TouchableOpacity>

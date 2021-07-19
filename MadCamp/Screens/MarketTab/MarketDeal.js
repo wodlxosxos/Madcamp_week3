@@ -114,7 +114,9 @@ export default function MarketDeal({route, navigation}) {
       </View>
       <FlatList
         data={data}
-        renderItem={({item}) => <BikeItem items={item} />}
+        renderItem={({item}) => (
+          <BikeItem route={item} navigation={navigation} />
+        )}
       />
       <FAB
         buttonColor="#10569B"
