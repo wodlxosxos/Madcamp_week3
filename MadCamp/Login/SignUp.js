@@ -24,7 +24,7 @@ function SignUp({navigation}) {
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
-            placeholder="Enter KAIST Emial"
+            placeholder="Enter KAIST Email without domain"
             placeholderTextColor="#003F5C"
             onChangeText={text => setUserEmail(text)}
           />
@@ -46,7 +46,6 @@ function SignUp({navigation}) {
         <Text style={styles.signInputText}>StudentID : </Text>
         <View style={styles.inputView}>
           <TextInput
-            secureTextEntry
             style={styles.inputText}
             placeholder="Enter StudentID"
             placeholderTextColor="#003F5C"
@@ -58,7 +57,64 @@ function SignUp({navigation}) {
         <TouchableOpacity
           id="signUpBtn"
           style={styles.signUpBtn}
-          onPress={() => navigation.goBack()}>
+          onPress={() => {
+            if (userPW === '' || userEmail === '' || userSID === '') {
+              ToastAndroid.showWithGravity(
+                '입력되지 않은 정보가 존재합니다.',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+              );
+              console.log('chk');
+            } else {
+              fetch(
+                `https://api.trumail.io/v2/lookups/json?email=${userEmail}@kaist.ac.kr`,
+              )
+                .then(response => response.json())
+                .then(json => {
+                  console.log(json);
+                  if (json.deliverable) {
+                    fetch('http://192.249.18.122:80/signUp', {
+                      method: 'POST',
+                      headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        user_id: userEmail,
+                        user_password: userPW,
+                        user_SID: userSID,
+                      }),
+                    })
+                      .then(res => {
+                        if (res.status === 200) {
+                          ToastAndroid.showWithGravity(
+                            '회원가입이 완료되었습니다.',
+                            ToastAndroid.SHORT,
+                            ToastAndroid.CENTER,
+                          );
+                          navigation.goBack();
+                        } else {
+                          ToastAndroid.showWithGravity(
+                            '이미 회원가입이 완료된 이메일 입니다.',
+                            ToastAndroid.SHORT,
+                            ToastAndroid.CENTER,
+                          );
+                        }
+                      })
+                      .catch(error => console.log('error', error));
+                  } else {
+                    ToastAndroid.showWithGravity(
+                      '존재하지 않는 KAIST Email 입니다.',
+                      ToastAndroid.SHORT,
+                      ToastAndroid.CENTER,
+                    );
+                  }
+                })
+                .catch(error => {
+                  console.error(error);
+                });
+            }
+          }}>
           <Text style={styles.loginText}>Sign Up</Text>
         </TouchableOpacity>
         <TouchableOpacity
