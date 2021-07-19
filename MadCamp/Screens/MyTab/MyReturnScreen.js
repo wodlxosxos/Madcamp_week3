@@ -11,12 +11,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-function MyHereScreen({navigation}) {
+function MyReturnScreen({navigation}) {
   return (
     <View>
-      <Text>MyHere</Text>
+      <Text>반납 창</Text>
     </View>
   );
 }
 
-export default MyHereScreen;
+export default MyReturnScreen;

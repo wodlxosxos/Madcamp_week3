@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import MyBikeScreen from './MyBikeScreen';
 import MyRentBikeScreen from './MyRentBikeScreen';
-import MyHereScreen from './MyHereScreen';
+import MyReturnScreen from './MyReturnScreen';
 import MyHistoryScreen from './MyHistoryScreen';
 
 const signStack = createStackNavigator();
@@ -26,7 +26,7 @@ function MyHome({navigation}) {
       <signStack.Screen name="MyScreen" component={MyScreen} />
       <signStack.Screen name="MyBike" component={MyBikeScreen} />
       <signStack.Screen name="MyRentBike" component={MyRentBikeScreen} />
-      <signStack.Screen name="MyHere" component={MyHereScreen} />
+      <signStack.Screen name="MyReturn" component={MyReturnScreen} />
       <signStack.Screen name="MyHistory" component={MyHistoryScreen} />
     </signStack.Navigator>
   );

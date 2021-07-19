@@ -54,8 +54,8 @@ export default function MyScreen({route, navigation}) {
         <View style={styles.rentBtnContainer}>
           <TouchableOpacity
             style={styles.rentBtn}
-            onPress={() => navigation.navigate('MyHere')}>
-            <Text style={styles.rentText}>자전거 반납</Text>
+            onPress={() => navigation.navigate('MyReturn')}>
+            <Text style={styles.rentText}>자전거 반납하기</Text>
           </TouchableOpacity>
         </View>
       </View>
