@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,7 +10,7 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import BikeInfo from '../../components/BikeInfo';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -115,52 +115,72 @@ async function requestPermission() {
     console.log(e);
   }
 }
+let baseHour = 0;
 
-export default function HomeScreen({route, navigation}) {
-  const [location, setLocation] = useState({lat: 0, lng: 0});
+export default function HomeScreen({ route, navigation }) {
+  const [location, setLocation] = useState({ lat: 0, lng: 0 });
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     requestPermission().then(result => {
-      console.log({result});
+      console.log({ result });
       if (result === 'granted') {
         Geolocation.getCurrentPosition(
           pos => {
-            setLocation({lat: pos.coords.latitude, lng: pos.coords.longitude});
+            setLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
           },
           error => {
             console.log(error);
           },
-          {enableHighAccuracy: true, timeout: 3600, maximumAge: 3600},
+          { enableHighAccuracy: true, timeout: 3600, maximumAge: 3600 },
         );
       }
     });
   }, []);
 
   const curDate = new Date();
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  if (curDate.getUTCHours() >= 15) {
+    baseHour = curDate.getUTCHours() - 15;
+  } else {
+    baseHour = curDate.getUTCHours() + 9;
+  }
+  const [isStrDatePickerVisible, setStrDatePickerVisibility] = useState(false);
+  const [isStrTimePickerVisible, setStrTimePickerVisibility] = useState(false);
+  const [isEndDatePickerVisible, setEndDatePickerVisibility] = useState(false);
+  const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState(false);
   const [strSelYear, setStrSelYear] = useState(curDate.getFullYear());
   const [strSelMonth, setStrSelMonth] = useState(curDate.getMonth());
   const [strSelDay, setStrSelDay] = useState(curDate.getDate());
-  const [strSelHour, setStrSelHour] = useState(curDate.getUTCHours() + 9);
+  const [strSelHour, setStrSelHour] = useState(baseHour);
   const [strSelMin, setStrSelMin] = useState(curDate.getUTCMinutes());
   const [endSelYear, setEndSelYear] = useState(curDate.getFullYear());
   const [endSelMonth, setEndSelMonth] = useState(curDate.getMonth());
   const [endSelDay, setEndSelDay] = useState(curDate.getDate());
-  const [endSelHour, setEndSelHour] = useState(curDate.getUTCHours() + 9);
+  const [endSelHour, setEndSelHour] = useState(baseHour);
   const [endSelMin, setEndSelMin] = useState(curDate.getUTCMinutes());
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
+  const showStrDatePicker = () => {
+    setStrDatePickerVisibility(true);
   };
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
+  const hideStrDatePicker = () => {
+    setStrDatePickerVisibility(false);
   };
-  const showTimePicker = () => {
-    setTimePickerVisibility(true);
+  const showStrTimePicker = () => {
+    setStrTimePickerVisibility(true);
   };
-  const hideTimePicker = () => {
-    setTimePickerVisibility(false);
+  const hideStrTimePicker = () => {
+    setStrTimePickerVisibility(false);
+  };
+  const showEndDatePicker = () => {
+    setEndDatePickerVisibility(true);
+  };
+  const hideEndDatePicker = () => {
+    setEndDatePickerVisibility(false);
+  };
+  const showEndTimePicker = () => {
+    setEndTimePickerVisibility(true);
+  };
+  const hideEndTimePicker = () => {
+    setEndTimePickerVisibility(false);
   };
 
   return (
@@ -171,35 +191,36 @@ export default function HomeScreen({route, navigation}) {
         </View>
         <View style={styles.startContainer}>
           <TouchableOpacity
-            onPress={showDatePicker}
+            onPress={showStrDatePicker}
             style={styles.strDateContainer}>
             <Text style={styles.dateText}>{strSelMonth + 1}/ </Text>
             <Text style={styles.dateText}>{strSelDay}</Text>
           </TouchableOpacity>
           <DateTimePickerModal
-            isVisible={isDatePickerVisible}
+            isVisible={isStrDatePickerVisible}
             mode="date"
             onConfirm={date => {
               setStrSelYear(date.getFullYear());
               setStrSelMonth(date.getMonth());
               setStrSelDay(date.getDate());
-              hideDatePicker();
+              hideStrDatePicker();
             }}
-            onCancel={hideDatePicker}
+            onCancel={hideStrDatePicker}
           />
           <TouchableOpacity
-            onPress={showTimePicker}
+            onPress={showStrTimePicker}
             style={styles.endDateContainer}>
             <Text style={styles.dateText}>
               {strSelHour}: {strSelMin}
             </Text>
           </TouchableOpacity>
           <DateTimePickerModal
-            isVisible={isTimePickerVisible}
+            isVisible={isStrTimePickerVisible}
             mode="time"
             is24Hour={true}
             display="spinner"
             onConfirm={date => {
+              console.log(date.getUTCHours());
               if (date.getUTCHours() >= 15) {
                 setStrSelHour(date.getUTCHours() - 15);
                 setStrSelMin(date.getUTCMinutes());
@@ -207,9 +228,9 @@ export default function HomeScreen({route, navigation}) {
                 setStrSelHour(date.getUTCHours() + 9);
                 setStrSelMin(date.getUTCMinutes());
               }
-              hideTimePicker();
+              hideStrTimePicker();
             }}
-            onCancel={hideTimePicker}
+            onCancel={hideStrTimePicker}
           />
         </View>
         <Icon
@@ -220,31 +241,31 @@ export default function HomeScreen({route, navigation}) {
           size={25}></Icon>
         <View style={styles.endendContainer}>
           <TouchableOpacity
-            onPress={showDatePicker}
+            onPress={showEndDatePicker}
             style={styles.strDateContainer}>
             <Text style={styles.dateText}>{endSelMonth + 1}/ </Text>
             <Text style={styles.dateText}>{endSelDay}</Text>
           </TouchableOpacity>
           <DateTimePickerModal
-            isVisible={isDatePickerVisible}
+            isVisible={isEndDatePickerVisible}
             mode="date"
             onConfirm={date => {
               setEndSelYear(date.getFullYear());
               setEndSelMonth(date.getMonth());
               setEndSelDay(date.getDate());
-              hideDatePicker();
+              hideEndDatePicker();
             }}
-            onCancel={hideDatePicker}
+            onCancel={hideEndDatePicker}
           />
           <TouchableOpacity
-            onPress={showTimePicker}
+            onPress={showEndTimePicker}
             style={styles.endDateContainer}>
             <Text style={styles.dateText}>
               {endSelHour}: {endSelMin}
             </Text>
           </TouchableOpacity>
           <DateTimePickerModal
-            isVisible={isTimePickerVisible}
+            isVisible={isEndTimePickerVisible}
             mode="time"
             is24Hour={true}
             display="spinner"
@@ -256,9 +277,9 @@ export default function HomeScreen({route, navigation}) {
                 setEndSelHour(date.getUTCHours() + 9);
                 setEndSelMin(date.getUTCMinutes());
               }
-              hideTimePicker();
+              hideEndTimePicker();
             }}
-            onCancel={hideTimePicker}
+            onCancel={hideEndTimePicker}
           />
         </View>
       </View>
@@ -277,43 +298,43 @@ export default function HomeScreen({route, navigation}) {
               longitudeDelta: 0.0101,
             }}>
             <Marker
-              coordinate={{latitude: 36.3664798, longitude: 127.3612639}}
+              coordinate={{ latitude: 36.3664798, longitude: 127.3612639 }}
               title={'응용공학동'}
               icon={markerIcon}
               onCalloutPress={e => console.log(e)}
             />
             <Marker
-              coordinate={{latitude: 36.3636441, longitude: 127.3591617}}
+              coordinate={{ latitude: 36.3636441, longitude: 127.3591617 }}
               title={'쪽문'}
               icon={markerIcon}
               onCalloutPress={e => console.log(e)}
             />
             <Marker
-              coordinate={{latitude: 36.3708546, longitude: 127.3665032}}
+              coordinate={{ latitude: 36.3708546, longitude: 127.3665032 }}
               title={'세종관'}
               icon={markerIcon}
               onCalloutPress={e => console.log(e)}
             />
             <Marker
-              coordinate={{latitude: 36.3706964, longitude: 127.3624517}}
+              coordinate={{ latitude: 36.3706964, longitude: 127.3624517 }}
               title={'창의학습관'}
               icon={markerIcon}
               onCalloutPress={e => console.log(e)}
             />
             <Marker
-              coordinate={{latitude: 36.37434, longitude: 127.36566}}
+              coordinate={{ latitude: 36.37434, longitude: 127.36566 }}
               title={'N1'}
               icon={markerIcon}
               onCalloutPress={e => console.log(e)}
             />
             <Marker
-              coordinate={{latitude: 36.3705, longitude: 127.35582}}
+              coordinate={{ latitude: 36.3705, longitude: 127.35582 }}
               title={'미르관/나래관'}
               icon={markerIcon}
               onCalloutPress={e => console.log(e)}
             />
             <Marker
-              coordinate={{latitude: 36.3734349, longitude: 127.3573793}}
+              coordinate={{ latitude: 36.3734349, longitude: 127.3573793 }}
               title={'아름관/소망관/사랑관'}
               icon={markerIcon}
               onCalloutPress={e => console.log(e)}
@@ -328,7 +349,7 @@ export default function HomeScreen({route, navigation}) {
             nestedScrollEnabled
             sections={data}
             keyExtractor={(item, index) => item + index}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <BikeInfo
                 items={item}
                 navigation={navigation}
