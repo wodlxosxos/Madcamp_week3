@@ -51,6 +51,10 @@ function SignIn({ navigation }) {
               }),
             })
               .then(res => {
+                navigation.replace('Main', {
+                  user_id: userId,
+                  user_password: userPassword,
+                });
                 if (res.status === 200) {
                   navigation.replace('Main', {
                     user_id: userId,
