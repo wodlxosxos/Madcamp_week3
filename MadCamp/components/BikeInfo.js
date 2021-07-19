@@ -15,7 +15,7 @@ const BikeInfo = ({items, navigation, info}) => {
       style={styles.container}
       onPress={() => setModalVisible(true)}>
       <Modal
-        style={{width: '90%', height: '90%', borderWidth: 1}}
+        style={{width: '90%', height: '90%'}}
         animationType="slide"
         transparent={true}
         visible={modalVisible}>
@@ -27,7 +27,7 @@ const BikeInfo = ({items, navigation, info}) => {
             <View style={styles.modalBikeContainer}>
               <Image
                 style={styles.modalBikeImage}
-                source={require('../Images/base_bicycle_img.jpg')}
+                source={require('../Images/bicycle_img.jpg')}
               />
             </View>
             <View style={styles.mainModalContainer}>
@@ -85,7 +85,7 @@ const BikeInfo = ({items, navigation, info}) => {
       </Modal>
       <Image
         style={styles.bikeImage}
-        source={require('../Images/base_bicycle_img.jpg')}
+        source={require('../Images/bicycle_img.jpg')}
       />
       <View style={styles.infoContainer}>
         <Text style={styles.nameText}>
@@ -109,8 +109,8 @@ const BikeInfo = ({items, navigation, info}) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
-    borderWidth: 1,
-    borderRadius: 15,
+    //borderWidth: 1,
+    //borderRadius: 15,
     flexDirection: 'row',
   },
   bikeImage: {
@@ -119,8 +119,8 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     margin: 5,
-    borderLeftWidth: 1,
-    paddingLeft: 5,
+    //borderLeftWidth: 1,
+    //paddingLeft: 5,
     height: '90%',
     width: '100%',
   },
@@ -141,11 +141,14 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
   },
   modalContainer: {
-    backgroundColor: '#5795D0',
-    marginTop: 5,
-    height: '91%',
-    width: '96%',
-    borderWidth: 2,
+    backgroundColor: '#10569B',
+    marginBottom: 5,
+    //marginTop: 5,
+    height: '100%',
+    width: '100%',
+    //height: '91%',
+    //width: '96%',
+    //borderWidth: 2,
     borderRadius: 35,
     alignSelf: 'center',
   },
@@ -154,9 +157,10 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    borderBottomWidth: 1,
+    //borderBottomWidth: 1,
   },
   titleText: {
+    color: 'white',
     fontSize: 20,
     fontFamily: 'SpoqaHanSansNeo-Bold',
   },
@@ -164,13 +168,13 @@ const styles = StyleSheet.create({
     height: '92%',
     width: '100%',
     backgroundColor: 'white',
-    borderBottomLeftRadius: 35,
-    borderBottomRightRadius: 35,
+    //borderBottomLeftRadius: 35,
+    //borderBottomRightRadius: 35,
   },
   modalBikeContainer: {
     height: '40%',
     width: '100%',
-    borderBottomWidth: 1,
+    //borderBottomWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
@@ -234,12 +238,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#5795D0',
+    backgroundColor: '#10569B',
     marginHorizontal: 30,
     marginVertical: 10,
     borderRadius: 20,
   },
   btnText: {
+    color: 'white',
     fontFamily: 'SpoqaHanSansNeo-Bold',
   },
 });

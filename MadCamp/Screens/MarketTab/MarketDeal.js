@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native';
 import {useEffect} from 'react/cjs/react.production.min';
-import BikeItem from '../../Item/BikeItem';
+import BikeItem from '../../components/BikeItem';
 import FAB from 'react-native-fab';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -133,14 +133,19 @@ export default function MarketDeal({route, navigation}) {
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
+    backgroundColor: 'white',
   },
   header: {
-    height: 60,
-    borderBottomWidth: 0.2,
-    borderColor: 'gray',
+    height: 55,
+    //borderBottomWidth: 0.2,
+    //borderColor: 'gray',
     backgroundColor: 'white',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    marginLeft: 15,
+    marginRight: 15,
+    //borderBottomWidth: 0.2,
+    //borderColor: 'gray',
   },
   headerText: {
     fontSize: 20,

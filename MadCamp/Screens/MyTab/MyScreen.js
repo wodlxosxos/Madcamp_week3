@@ -76,7 +76,8 @@ export default function MyScreen({route, navigation}) {
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#E7E7E7',
+    backgroundColor: 'white',
+    //backgroundColor: '#E7E7E7',
     flex: 1,
     alignItems: 'center',
   },

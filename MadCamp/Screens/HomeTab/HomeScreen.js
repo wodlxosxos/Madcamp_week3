@@ -14,7 +14,7 @@ import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import BikeInfo from '../../components/BikeInfo';
 
-const markerIcon = require('../../Images/bicycle_icon.png');
+const markerIcon = require('../../Images/bicycleicon.png');
 const curIcon = require('../../Images/cur_pos_icon.png');
 const data = [
   {
@@ -353,7 +353,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 60,
     width: '100%',
-    backgroundColor: 'black',
+    //backgroundColor: 'black',
   },
   strContainer: {
     flex: 1,
@@ -392,7 +392,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     height: '90%',
     width: '100%',
-    borderWidth: 1,
+    //borderWidth: 1,
   },
   mapViewContainer: {
     height: 400,
@@ -405,16 +405,17 @@ const styles = StyleSheet.create({
   bikeContainer: {
     height: 600,
     width: '100%',
-    borderRadius: 25,
-    borderColor: 'gray',
-    borderWidth: 3,
+    //borderRadius: 25,
+    //borderColor: 'black',
+    //borderWidth: 1,
     padding: 7,
     marginHorizontal: 2,
     marginBottom: 4,
+    overflow: 'hidden',
   },
   containerTitle: {
-    height: 30,
-    borderBottomWidth: 1,
+    height: 50,
+    borderBottomWidth: 0.2,
     borderColor: 'gray',
     borderRadius: 30,
     alignItems: 'center',
