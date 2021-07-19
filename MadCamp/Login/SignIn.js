@@ -39,6 +39,10 @@ function SignIn({ navigation }) {
           id="loginBtn"
           style={styles.loginBtn}
           onPress={() => {
+            navigation.replace('Main', {
+              user_id: userId,
+              user_password: userPassword,
+            });
             fetch('http://192.249.18.122:80/signIn', {
               method: 'POST',
               headers: {
@@ -51,10 +55,6 @@ function SignIn({ navigation }) {
               }),
             })
               .then(res => {
-                navigation.replace('Main', {
-                  user_id: userId,
-                  user_password: userPassword,
-                });
                 if (res.status === 200) {
                   navigation.replace('Main', {
                     user_id: userId,
