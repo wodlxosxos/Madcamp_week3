@@ -11,6 +11,10 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import MyBikeScreen from './MyBikeScreen';
+import MyRentBikeScreen from './MyRentBikeScreen';
+import MyHereScreen from './MyHereScreen';
+import MyHistoryScreen from './MyHistoryScreen';
 
 const signStack = createStackNavigator();
 
@@ -20,6 +24,10 @@ function MyHome({navigation}) {
       screenOptions={{headerShown: false}}
       initialRouteName="MyScreen">
       <signStack.Screen name="MyScreen" component={MyScreen} />
+      <signStack.Screen name="MyBike" component={MyBikeScreen} />
+      <signStack.Screen name="MyRentBike" component={MyRentBikeScreen} />
+      <signStack.Screen name="MyHere" component={MyHereScreen} />
+      <signStack.Screen name="MyHistory" component={MyHistoryScreen} />
     </signStack.Navigator>
   );
 }

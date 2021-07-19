@@ -38,17 +38,23 @@ export default function MyScreen({route, navigation}) {
           <Text style={styles.rentSubTitleText}>* 대여</Text>
         </View>
         <View style={styles.rentBtnContainer}>
-          <TouchableOpacity style={styles.rentBtn}>
+          <TouchableOpacity
+            style={styles.rentBtn}
+            onPress={() => navigation.navigate('MyBike')}>
             <Text style={styles.rentText}>내 자전거 관리</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.rentBtnContainer}>
-          <TouchableOpacity style={styles.rentBtn}>
+          <TouchableOpacity
+            style={styles.rentBtn}
+            onPress={() => navigation.navigate('MyRentBike')}>
             <Text style={styles.rentText}>대여 중인 자전거</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.rentBtnContainer}>
-          <TouchableOpacity style={styles.rentBtn}>
+          <TouchableOpacity
+            style={styles.rentBtn}
+            onPress={() => navigation.navigate('MyHere')}>
             <Text style={styles.rentText}>자전거 반납</Text>
           </TouchableOpacity>
         </View>
@@ -58,7 +64,9 @@ export default function MyScreen({route, navigation}) {
           <Text style={styles.marketSubTitleText}>* 마켓</Text>
         </View>
         <View style={styles.marketBtnContainer}>
-          <TouchableOpacity style={styles.marketBtn}>
+          <TouchableOpacity
+            style={styles.marketBtn}
+            onPress={() => navigation.navigate('MyHistory')}>
             <Text style={styles.rentText}>거래내역</Text>
           </TouchableOpacity>
         </View>
