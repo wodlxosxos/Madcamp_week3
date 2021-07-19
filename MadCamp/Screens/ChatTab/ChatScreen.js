@@ -10,8 +10,9 @@ export default function ChatScreen({route, navigation}) {
     <Tab.Navigator
       tabBarOptions={{
         activeTintColor: 'white',
-        indicatorStyle: {backgroundColor: 'white'},
-        style: {backgroundColor: '#0C579F'},
+        indicatorStyle: {backgroundColor: '#0C579F'},
+        activeTintColor: 'black',
+        style: {backgroundColor: 'white'},
       }}>
       <Tab.Screen name="대여" component={Rentalstack} />
       <Tab.Screen name="거래" component={Dealstack} />
