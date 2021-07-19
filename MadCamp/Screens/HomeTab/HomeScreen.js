@@ -166,11 +166,14 @@ export default function HomeScreen({route, navigation}) {
     <View style={styles.container}>
       <View style={styles.topTabContainer}>
         <View style={styles.strContainer}>
+          <View style={styles.topTextContainer}>
+            <Text style={styles.topText}>대여</Text>
+          </View>
           <TouchableOpacity
             onPress={showDatePicker}
             style={styles.strDateContainer}>
-            <Text style={styles.dateText}>{strSelMonth + 1}월 </Text>
-            <Text style={styles.dateText}>{strSelDay}일</Text>
+            <Text style={styles.dateText}>{strSelMonth + 1}/ </Text>
+            <Text style={styles.dateText}>{strSelDay}</Text>
           </TouchableOpacity>
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
@@ -187,7 +190,7 @@ export default function HomeScreen({route, navigation}) {
             onPress={showTimePicker}
             style={styles.strDateContainer}>
             <Text style={styles.dateText}>
-              {strSelHour}시 {strSelMin}분
+              {strSelHour}: {strSelMin}
             </Text>
           </TouchableOpacity>
           <DateTimePickerModal
@@ -212,8 +215,8 @@ export default function HomeScreen({route, navigation}) {
           <TouchableOpacity
             onPress={showDatePicker}
             style={styles.endDateContainer}>
-            <Text style={styles.dateText}>{endSelMonth + 1}월 </Text>
-            <Text style={styles.dateText}>{endSelDay}일</Text>
+            <Text style={styles.dateText}>{endSelMonth + 1}/</Text>
+            <Text style={styles.dateText}>{endSelDay}</Text>
           </TouchableOpacity>
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
@@ -230,7 +233,7 @@ export default function HomeScreen({route, navigation}) {
             onPress={showTimePicker}
             style={styles.endDateContainer}>
             <Text style={styles.dateText}>
-              {endSelHour}시 {endSelMin}분
+              {endSelHour}: {endSelMin}
             </Text>
           </TouchableOpacity>
           <DateTimePickerModal
@@ -351,9 +354,20 @@ const styles = StyleSheet.create({
   },
   topTabContainer: {
     flexDirection: 'row',
-    height: 60,
+    height: 55,
     width: '100%',
+    //alignItems: 'flex-start',
     //backgroundColor: 'black',
+  },
+  topTextContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    alignItems: 'flex-start',
+  },
+  topText: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   strContainer: {
     flex: 1,

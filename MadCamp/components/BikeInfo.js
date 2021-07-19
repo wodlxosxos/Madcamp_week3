@@ -93,14 +93,9 @@ const BikeInfo = ({items, navigation, info}) => {
         </Text>
         <Text style={styles.nameText}>학번 : {items.userSID}</Text>
         <Text style={styles.nameText}>평점 : {items.rating}</Text>
-        <View style={styles.feeContainer}>
-          <View style={styles.feeHour}>
-            <Text style={styles.nameText}>시간당 : {items.hourFee}</Text>
-          </View>
-          <View style={styles.feeDay}>
-            <Text style={styles.nameText}>하루당 : {items.dayFee}</Text>
-          </View>
-        </View>
+        <Text style={styles.nameText}>
+          시간당: {items.hourFee} 원 / 일당: {items.dayFee} 원
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -126,19 +121,6 @@ const styles = StyleSheet.create({
   },
   nameText: {
     fontFamily: 'SpoqaHanSansNeo-Medium',
-  },
-  feeContainer: {
-    flexDirection: 'row',
-    borderTopWidth: 1,
-    height: 40,
-    width: '70%',
-  },
-  feeHour: {flex: 1, justifyContent: 'center', alignItems: 'center'},
-  feeDay: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderLeftWidth: 1,
   },
   modalContainer: {
     backgroundColor: '#10569B',
