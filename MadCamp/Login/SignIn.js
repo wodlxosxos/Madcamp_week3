@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,7 +8,9 @@ import {
   ToastAndroid,
 } from 'react-native';
 
-function SignIn({navigation}) {
+function SignIn({ navigation }) {
+  const [userId, setUserId] = useState('');
+  const [userPassword, setUserPassword] = useState('');
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>엄복동</Text>
@@ -17,6 +19,7 @@ function SignIn({navigation}) {
           style={styles.inputText}
           placeholder="ID..."
           placeholderTextColor="#003f5c"
+          onChangeText={text => setUserId(text)}
         />
       </View>
       <View style={styles.inputView}>
@@ -25,6 +28,7 @@ function SignIn({navigation}) {
           style={styles.inputText}
           placeholder="Password..."
           placeholderTextColor="#003f5c"
+          onChangeText={text => setUserPassword(text)}
         />
       </View>
       <TouchableOpacity>
@@ -34,7 +38,44 @@ function SignIn({navigation}) {
         <TouchableOpacity
           id="loginBtn"
           style={styles.loginBtn}
-          onPress={() => navigation.navigate('Main')}>
+          onPress={() => {
+            fetch('http://192.249.18.122:80/signIn', {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                user_id: userId,
+                user_password: userPassword,
+              }),
+            })
+              .then(res => {
+                navigation.replace('Main', {
+                  user_id: userId,
+                  user_password: userPassword,
+                });
+                if (res.status === 200) {
+                  navigation.replace('Main', {
+                    user_id: userId,
+                    user_password: userPassword,
+                  });
+                } else if (res.status === 400) {
+                  ToastAndroid.showWithGravity(
+                    '잘못된 ID입니다.',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                  );
+                } else {
+                  ToastAndroid.showWithGravity(
+                    '잘못된 Password입니다.',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                  );
+                }
+              })
+              .catch(error => console.log('error', error));
+          }}>
           <Text style={styles.loginText}>Sign In</Text>
         </TouchableOpacity>
         <TouchableOpacity
