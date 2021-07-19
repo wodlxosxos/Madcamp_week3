@@ -30,10 +30,19 @@ export default function MarketDetailScreen({route, navigation}) {
 
       <ScrollView>
         <View style={styles.Context}>
-          <Image
-            source={require('../../Image/b10.jpg')}
-            style={styles.UploadImg}
-          />
+          <View>
+            <Image
+              source={require('../../Image/b10.jpg')}
+              style={styles.UploadImg}></Image>
+          </View>
+          <View style={styles.profileContainer}>
+            <Text> {route.params.emailId}</Text>
+          </View>
+          <Icon
+            //style={styles.icon}
+            name={route.heartClick ? 'heart' : 'heart-outline'}
+            color="#10569B"
+            size={25}></Icon>
           <Text style={styles.TitleText}> {route.params.itemPrice}</Text>
           <Text style={styles.DetailText}> {route.params.itemDetail}</Text>
         </View>
@@ -87,6 +96,10 @@ const styles = StyleSheet.create({
   UploadImg: {
     width: '100%',
     height: 360,
+  },
+  profileContainer: {
+    padding: 20,
+    flexDirection: 'row',
   },
   input: {
     height: 50,

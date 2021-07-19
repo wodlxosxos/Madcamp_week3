@@ -17,6 +17,7 @@ export default function MarketDeal({route, navigation}) {
     //key, title: 제목, price: 가격, detail: 상세정보, reg: item 등록 시간
     {
       key: 1,
+      emailId: '1@kaist.ac.kr',
       itemTitle: '30년된 자전거 팝니다',
       itemPrice: '300,000원',
       itemDetail:
@@ -26,6 +27,7 @@ export default function MarketDeal({route, navigation}) {
     },
     {
       key: 2,
+      emailId: '2@kaist.ac.kr',
       itemTitle: '30년된 자전거 팝니다',
       itemPrice: '300,000원',
       itemDetail:
@@ -35,6 +37,7 @@ export default function MarketDeal({route, navigation}) {
     },
     {
       key: 3,
+      emailId: '3@kaist.ac.kr',
       itemTitle: '30년된 자전거 팝니다',
       itemPrice: '300,000원',
       itemDetail:
@@ -44,6 +47,7 @@ export default function MarketDeal({route, navigation}) {
     },
     {
       key: 4,
+      emailId: '4@kaist.ac.kr',
       itemTitle: '30년된 자전거 팝니다',
       itemPrice: '300,000원',
       itemDetail:
@@ -53,6 +57,7 @@ export default function MarketDeal({route, navigation}) {
     },
     {
       key: 5,
+      emailId: '5@kaist.ac.kr',
       itemTitle: '30년된 자전거 팝니다',
       itemPrice: '300,000원',
       itemDetail:
@@ -62,6 +67,7 @@ export default function MarketDeal({route, navigation}) {
     },
     {
       key: 6,
+      emailId: '6@kaist.ac.kr',
       itemTitle: '30년된 자전거 팝니다',
       itemPrice: '300,000원',
       itemDetail:
@@ -71,6 +77,7 @@ export default function MarketDeal({route, navigation}) {
     },
     {
       key: 7,
+      emailId: '7@kaist.ac.kr',
       itemTitle: '30년된 자전거 팝니다',
       itemPrice: '300,000원',
       itemDetail:
@@ -80,6 +87,7 @@ export default function MarketDeal({route, navigation}) {
     },
     {
       key: 8,
+      emailId: '8@kaist.ac.kr',
       itemTitle: '30년된 자전거 팝니다',
       itemPrice: '300,000원',
       itemDetail:
@@ -89,6 +97,7 @@ export default function MarketDeal({route, navigation}) {
     },
     {
       key: 9,
+      emailId: '9@kaist.ac.kr',
       itemTitle: '30년된 자전거 팝니다',
       itemPrice: '300,000원',
       itemDetail:
@@ -98,6 +107,7 @@ export default function MarketDeal({route, navigation}) {
     },
     {
       key: 10,
+      emailId: '10@kaist.ac.kr',
       itemTitle: '30년된 자전거 팝니다',
       itemPrice: '300,000원',
       itemDetail:
