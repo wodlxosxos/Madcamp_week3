@@ -13,26 +13,20 @@ import {
 } from 'react-native';
 
 function SignUp({navigation}) {
+  const [userEmail, setUserEmail] = useState('');
+  const [userPW, setUserPW] = useState('');
+  const [userSID, setUserSID] = useState('');
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>Sign Up</Text>
       <View style={styles.signInputView}>
-        <Text style={styles.signInputText}>ID : </Text>
+        <Text style={styles.signInputText}>Email : </Text>
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
-            placeholder="Enter ID"
+            placeholder="Enter KAIST Emial"
             placeholderTextColor="#003F5C"
-          />
-        </View>
-      </View>
-      <View style={styles.signInputView}>
-        <Text style={styles.signInputText}>NickName : </Text>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.inputText}
-            placeholder="Enter Nickname"
-            placeholderTextColor="#003F5C"
+            onChangeText={text => setUserEmail(text)}
           />
         </View>
       </View>
@@ -44,6 +38,19 @@ function SignUp({navigation}) {
             style={styles.inputText}
             placeholder="Enter Password"
             placeholderTextColor="#003F5C"
+            onChangeText={text => setUserPW(text)}
+          />
+        </View>
+      </View>
+      <View style={styles.signInputView}>
+        <Text style={styles.signInputText}>StudentID : </Text>
+        <View style={styles.inputView}>
+          <TextInput
+            secureTextEntry
+            style={styles.inputText}
+            placeholder="Enter StudentID"
+            placeholderTextColor="#003F5C"
+            onChangeText={text => setUserSID(text)}
           />
         </View>
       </View>
@@ -80,7 +87,7 @@ const styles = StyleSheet.create({
   inputView: {
     width: '60%',
     backgroundColor: 'white',
-    borderColor: '#0C579F',
+    borderColor: 'black',
     borderWidth: 1,
     borderRadius: 25,
     height: 20,
