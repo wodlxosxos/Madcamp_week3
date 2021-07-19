@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
     marginLeft: 10,
     width: 300,
-    borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
+    //borderBottomWidth: 1,
+    //borderBottomColor: '#cccccc',
   },
   UserInfo: {
     flexDirection: 'row',

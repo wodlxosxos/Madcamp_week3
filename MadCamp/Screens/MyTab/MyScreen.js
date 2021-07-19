@@ -11,10 +11,10 @@ import {
 export default function MyScreen({route, navigation}) {
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>내정보</Text>
+      </View>
       <View style={styles.myInfoContainer}>
-        <View style={styles.infoSubTitleContainer}>
-          <Text style={styles.infoSubTitleText}>* 내정보</Text>
-        </View>
         <View style={styles.infoDetContainer}>
           <View style={styles.imageContainer}>
             <Image
@@ -29,13 +29,13 @@ export default function MyScreen({route, navigation}) {
         </View>
         <View style={styles.emailContainer}>
           <Text style={styles.emailText}>
-            KAIST Email - fortest@kaist.co.kr
+            KAIST Email - fortest@kaist.ac.kr
           </Text>
         </View>
       </View>
       <View style={styles.myBikeContainer}>
         <View style={styles.rentSubTitleContainer}>
-          <Text style={styles.rentSubTitleText}>* 대여</Text>
+          <Text style={styles.rentSubTitleText}>대여</Text>
         </View>
         <View style={styles.rentBtnContainer}>
           <TouchableOpacity
@@ -61,7 +61,7 @@ export default function MyScreen({route, navigation}) {
       </View>
       <View style={styles.myMarketContainer}>
         <View style={styles.marketSubTitleContainer}>
-          <Text style={styles.marketSubTitleText}>* 마켓</Text>
+          <Text style={styles.marketSubTitleText}>마켓</Text>
         </View>
         <View style={styles.marketBtnContainer}>
           <TouchableOpacity
@@ -77,68 +77,65 @@ export default function MyScreen({route, navigation}) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    //backgroundColor: '#E7E7E7',
     flex: 1,
-    alignItems: 'center',
+    //alignItems: 'center',
+  },
+  header: {
+    height: 50,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginLeft: 15,
+    marginRight: 15,
+    borderBottomWidth: 0.2,
+    borderColor: 'gray',
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   myInfoContainer: {
     backgroundColor: 'white',
-    marginTop: '1%',
-    marginLeft: '1.5%',
-    marginRight: '1.5%',
+    marginTop: '5%',
     width: '97%',
-    height: '20%',
-    borderBottomWidth: 2,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    marginLeft: 5,
+    borderColor: 'gray',
     borderColor: '#A2A7A5',
+    flex: 4,
   },
   myBikeContainer: {
     backgroundColor: 'white',
-    marginLeft: '1.5%',
-    marginRight: '1.5%',
-    width: '97%',
-    height: '43%',
-    borderBottomWidth: 2,
-    borderColor: '#A2A7A5',
+    width: '100%',
+    height: '40%',
+    flex: 3,
   },
   myMarketContainer: {
     backgroundColor: 'white',
-    marginLeft: '1.5%',
-    marginRight: '1.5%',
-    width: '97%',
-    height: '23%',
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
+    width: '100%',
+    flex: 2,
   },
   infoDetContainer: {
     flexDirection: 'row',
-    width: '92%',
-    height: '50%',
-    borderBottomWidth: 1,
-    paddingBottom: 5,
-    marginTop: '1%',
-    borderColor: '#E5EAE8',
-    alignSelf: 'center',
+    width: '100%',
   },
   imageContainer: {
-    flex: 2,
-    borderRadius: 20,
+    marginTop: 10,
+    flex: 3,
   },
   infoNameText: {
     fontFamily: 'SpoqaHanSansNeo-Megular',
-    marginTop: '5%',
-    marginLeft: '5%',
+    marginTop: '10%',
+    marginLeft: '10%',
     fontSize: 20,
   },
   infoSIDText: {
     fontFamily: 'SpoqaHanSansNeo-Megular',
-    marginLeft: '5%',
+    marginLeft: '10%',
     fontSize: 15,
   },
   userImage: {
-    height: '100%',
-    width: '70%',
+    height: '80%',
+    width: '80%',
     borderRadius: 20,
     alignSelf: 'flex-end',
   },
@@ -147,53 +144,33 @@ const styles = StyleSheet.create({
   },
   emailContainer: {
     width: '100%',
-    height: '30%',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: '#E5EAE8',
-    borderBottomWidth: 1,
   },
   emailText: {
     fontFamily: 'SpoqaHanSansNeo-Regular',
-    color: '#69706D',
-  },
-  infoSubTitleContainer: {
-    width: '95%',
-    height: '15%',
-    marginTop: '2%',
-    marginLeft: '3%',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderColor: '#666C69',
-  },
-  infoSubTitleText: {
-    fontFamily: 'SpoqaHanSansNeo-Bold',
-    color: 'black',
+    color: '#003F5C',
   },
   rentSubTitleContainer: {
-    width: '95%',
-    height: '10%',
-    marginTop: '2%',
-    marginLeft: '3%',
+    width: '90%',
+    padding: 10,
+    marginLeft: '5%',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    borderBottomWidth: 1,
+    borderTopWidth: 0.2,
     borderColor: '#666C69',
   },
   rentSubTitleText: {
     fontFamily: 'SpoqaHanSansNeo-Bold',
-    color: 'black',
+    fontSize: 18,
+    color: '#003F5C',
   },
   rentBtnContainer: {
     marginLeft: '5%',
-    borderBottomWidth: 1,
-    height: '19%',
-    borderColor: '#E5EAE8',
   },
   rentBtn: {
     width: '100%',
-    height: '100%',
+    padding: 10,
     justifyContent: 'center',
   },
   rentText: {
@@ -203,28 +180,25 @@ const styles = StyleSheet.create({
   },
   marketBtnContainer: {
     marginLeft: '5%',
-    borderBottomWidth: 1,
-    height: '35%',
-    borderColor: '#E5EAE8',
+    height: 40,
   },
   marketBtn: {
     width: '100%',
-    height: '100%',
+    padding: 10,
     justifyContent: 'center',
   },
   marketSubTitleContainer: {
-    width: '95%',
-    height: '10%',
-    marginTop: '4%',
-    marginLeft: '3%',
+    width: '90%',
+    padding: 10,
+    marginLeft: '5%',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    borderBottomWidth: 1,
+    borderTopWidth: 0.2,
     borderColor: '#666C69',
   },
   marketSubTitleText: {
     fontFamily: 'SpoqaHanSansNeo-Bold',
-    color: 'black',
-    marginBottom: '3%',
+    color: '#003F5C',
+    fontSize: 18,
   },
 });

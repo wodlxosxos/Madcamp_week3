@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   header: {
-    height: 55,
+    height: 50,
     //borderBottomWidth: 0.2,
     //borderColor: 'gray',
     backgroundColor: 'white',
@@ -144,8 +144,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginLeft: 15,
     marginRight: 15,
-    //borderBottomWidth: 0.2,
-    //borderColor: 'gray',
+    borderBottomWidth: 0.2,
+    borderColor: 'gray',
   },
   headerText: {
     fontSize: 20,
