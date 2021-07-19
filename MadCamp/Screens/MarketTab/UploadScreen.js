@@ -7,20 +7,12 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Items = [
-  {
-    id: '1',
-    uploadName: 'Jenny Doe',
-    uploadImg: require('../../Image/b1.jpg'),
-  },
-];
-
 export default function UploadScreen({route, navigation}) {
-  const [text, onChangeText] = React.useState('Useless Text');
+  const [titletext, onChangeTitle] = React.useState(null);
+  const [detailtext, onChangeDetail] = React.useState(null);
   const [number, onChangeNumber] = React.useState(null);
 
   return (
@@ -34,6 +26,10 @@ export default function UploadScreen({route, navigation}) {
           </TouchableOpacity>
         </View>
 
+        <View style={styles.TitleOut}>
+          <Text style={styles.Title}>판매 상품 등록</Text>
+        </View>
+
         <View style={styles.CompleteOut}>
           <TouchableOpacity
             style={styles.Complete}
@@ -44,22 +40,32 @@ export default function UploadScreen({route, navigation}) {
       </View>
 
       <ScrollView>
-        <View style={styles.UploadImgWrapper}>
-          <Image
-            source={require('../../Image/b1.jpg')}
-            style={styles.UploadImg}
-          />
+        <View style={styles.Context}>
+          <TouchableOpacity style={styles.ImgContent}>
+            <Image
+              source={require('../../Image/camera.jpg')}
+              style={styles.UploadImg}
+            />
+          </TouchableOpacity>
           <TextInput
             style={styles.input}
-            onChangeText={onChangeText}
-            value={text}
+            onChangeTitle={onChangeTitle}
+            value={titletext}
+            placeholder="글 제목을 입력하세요"
           />
           <TextInput
             style={styles.input}
             onChangeText={onChangeNumber}
             value={number}
-            placeholder="useless placeholder"
+            placeholder="₩ 가격을 입력하세요 "
             keyboardType="numeric"
+          />
+          <TextInput
+            style={styles.inputDetail}
+            onChangeDetail={onChangeDetail}
+            value={detailtext}
+            placeholder="게시글 내용을 작성하세요"
+            multiline={true}
           />
         </View>
       </ScrollView>
@@ -69,8 +75,13 @@ export default function UploadScreen({route, navigation}) {
 
 const styles = StyleSheet.create({
   Container: {
+    backgroundColor: 'white',
     flex: 1,
     flexDirection: 'column',
+  },
+  Context: {
+    backgroundColor: 'white',
+    padding: 20,
   },
   Header: {
     flexDirection: 'row',
@@ -81,7 +92,22 @@ const styles = StyleSheet.create({
   },
   Back: {
     height: '100%',
-    width: '17%',
+    width: '50%',
+    //marginLeft: 10,
+    alignItems: 'center', //horizontal
+    justifyContent: 'center', //vertical
+  },
+  TitleOut: {
+    flex: 1,
+    height: 50,
+  },
+  Title: {
+    height: '100%',
+    width: '100%',
+    marginTop: 15,
+    marginLeft: 10,
+    fontSize: 16,
+    color: '#003F5C',
     alignItems: 'center', //horizontal
     justifyContent: 'center', //vertical
   },
@@ -92,11 +118,9 @@ const styles = StyleSheet.create({
   },
   Complete: {
     height: '70%',
-    width: '30%',
-    //borderWidth: 1,
-    marginTop: 10,
-    //marginLeft: 295,
-    marginRight: 5,
+    width: '40%',
+    marginTop: 8,
+    marginRight: 10,
     backgroundColor: '#10569B',
     alignItems: 'center', //horizontal
     justifyContent: 'center', //vertical
@@ -106,15 +130,21 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 15,
   },
-  UploadImgWrapper: {
-    //marginTop: 50,
+  ImgContent: {
+    padding: 20,
   },
   UploadImg: {
-    width: 235,
-    height: 235,
+    width: 100,
+    height: 100,
   },
   input: {
-    height: 40,
-    borderWidth: 0.2,
+    height: 50,
+    borderBottomWidth: 0.2,
+    borderColor: 'gray',
+  },
+  inputDetail: {
+    height: 300,
+    width: '100%',
+    textAlignVertical: 'top',
   },
 });

@@ -110,7 +110,7 @@ export default function MarketDeal({route, navigation}) {
   return (
     <SafeAreaView style={styles.wrap}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Header</Text>
+        <Text style={styles.headerText}>자전거 거래</Text>
       </View>
       <FlatList
         data={data}
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
   header: {
     height: 60,
     borderBottomWidth: 0.2,
+    borderColor: 'gray',
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
