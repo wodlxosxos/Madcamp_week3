@@ -50,24 +50,26 @@ function SignIn({ navigation }) {
                 user_password: userPassword,
               }),
             })
-              .then(res => {
-                if (res.status === 200) {
-                  navigation.replace('Main', {
-                    userId: userId,
-                    userPassword: userPassword,
-                  });
-                } else if (res.status === 400) {
+              .then(res => res.json())
+              .then(json => {
+                if (json.user_name === "Wrong ID") {
                   ToastAndroid.showWithGravity(
                     '잘못된 ID입니다.',
                     ToastAndroid.SHORT,
                     ToastAndroid.CENTER,
                   );
-                } else {
+                } else if (json.user_name === "Wrong PW") {
                   ToastAndroid.showWithGravity(
                     '잘못된 Password입니다.',
                     ToastAndroid.SHORT,
                     ToastAndroid.CENTER,
                   );
+                } else {
+                  console.log('replace to main');
+                  navigation.replace('Main', {
+                    user_id: userId,
+                    user_name: json.user_name,
+                  });
                 }
               })
               .catch(error => console.log('error', error));

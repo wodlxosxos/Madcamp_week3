@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   StyleSheet,
@@ -12,15 +12,14 @@ import {
   ToastAndroid,
 } from 'react-native';
 
-function SignUp({navigation}) {
+function SignUp({ navigation }) {
   const [userEmail, setUserEmail] = useState('');
   const [userPW, setUserPW] = useState('');
-  const [userSID, setUserSID] = useState('');
+  const [userName, setUserName] = useState('');
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>Sign Up</Text>
       <View style={styles.signInputView}>
-        <Text style={styles.signInputText}>Email : </Text>
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
@@ -31,7 +30,6 @@ function SignUp({navigation}) {
         </View>
       </View>
       <View style={styles.signInputView}>
-        <Text style={styles.signInputText}>PW : </Text>
         <View style={styles.inputView}>
           <TextInput
             secureTextEntry
@@ -43,13 +41,12 @@ function SignUp({navigation}) {
         </View>
       </View>
       <View style={styles.signInputView}>
-        <Text style={styles.signInputText}>StudentID : </Text>
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
-            placeholder="Enter StudentID"
+            placeholder="Enter Name"
             placeholderTextColor="#003F5C"
-            onChangeText={text => setUserSID(text)}
+            onChangeText={text => setUserName(text)}
           />
         </View>
       </View>
@@ -58,7 +55,7 @@ function SignUp({navigation}) {
           id="signUpBtn"
           style={styles.signUpBtn}
           onPress={() => {
-            if (userPW === '' || userEmail === '' || userSID === '') {
+            if (userPW === '' || userEmail === '' || userName === '') {
               ToastAndroid.showWithGravity(
                 '입력되지 않은 정보가 존재합니다.',
                 ToastAndroid.SHORT,
@@ -82,7 +79,7 @@ function SignUp({navigation}) {
                       body: JSON.stringify({
                         user_id: userEmail,
                         user_password: userPW,
-                        user_SID: userSID,
+                        user_name: userName,
                       }),
                     })
                       .then(res => {
@@ -154,7 +151,7 @@ const styles = StyleSheet.create({
   inputText: {
     height: 40,
     color: 'black',
-    fontSize: 12,
+    fontSize: 11,
   },
   signUpBtn: {
     width: '20%',

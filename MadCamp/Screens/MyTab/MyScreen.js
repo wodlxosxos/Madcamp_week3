@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,8 @@ import {
   Image,
 } from 'react-native';
 
-export default function MyScreen({route, navigation}) {
+export default function MyScreen({ route, navigation }) {
+  console.log(route);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
