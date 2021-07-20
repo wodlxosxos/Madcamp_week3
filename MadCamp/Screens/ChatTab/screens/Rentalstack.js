@@ -10,8 +10,8 @@ export default function DealStack({navigation}) {
     <Stack.Navigator
       initialRouteName="Messages"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Messages" component={Rentalmessages} />
-      <Stack.Screen name="Chat" component={Rentalchat} />
+      <Stack.Screen name="RentalMessages" component={Rentalmessages} />
+      <Stack.Screen name="RentalChat" component={Rentalchat} />
     </Stack.Navigator>
   );
 }

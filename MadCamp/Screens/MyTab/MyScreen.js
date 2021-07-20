@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     borderBottomWidth: 0.2,
-    borderColor: 'gray',
+    borderColor: '#cfcfcf',
   },
   headerText: {
     fontSize: 20,

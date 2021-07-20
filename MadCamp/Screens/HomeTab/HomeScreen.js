@@ -382,10 +382,10 @@ const styles = StyleSheet.create({
   },
   topTabContainer: {
     flexDirection: 'row',
-    height: 55,
+    height: 50,
   },
   topTextContainer: {
-    height: 55,
+    height: 50,
     flex: 1,
     backgroundColor: 'white',
     justifyContent: 'center',
@@ -452,7 +452,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   iconContainer: {
-    marginTop: 15,
+    marginTop: 12,
   },
   scrollContainer: {
     height: '90%',
@@ -474,8 +474,7 @@ const styles = StyleSheet.create({
   containerTitle: {
     height: 50,
     borderBottomWidth: 0.2,
-    borderColor: 'gray',
-    borderRadius: 30,
+    borderColor: '#cfcfcf',
     alignItems: 'center',
     justifyContent: 'center',
   },

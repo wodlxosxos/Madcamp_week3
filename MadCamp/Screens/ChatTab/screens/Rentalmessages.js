@@ -61,7 +61,7 @@ export default function Rentalmessages({route, navigation}) {
           <TouchableOpacity
             style={styles.Card}
             onPress={() =>
-              navigation.navigate('Chat', {userName: item.userName})
+              navigation.navigate('RentalChat', {userName: item.userName})
             }>
             <View style={styles.UserInfo}>
               <View style={styles.UserImgWrapper}>
