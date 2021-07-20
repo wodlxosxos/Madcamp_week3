@@ -57,8 +57,9 @@ const data = [
 let dataList = [];
 function MyBikeScreen({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [hourFee, onChangeHour] = React.useState('');
-  const [dayFee, onChangeDay] = React.useState('');
+  const [hourFee, setHourFee] = React.useState('');
+  const [dayFee, setDayFee] = React.useState('');
+  const [building, setBuilding] = React.useState('');
   return (
     <SafeAreaView style={styles.wrap}>
       <View style={styles.header}>
@@ -105,7 +106,7 @@ function MyBikeScreen({ route, navigation }) {
           //alert('FAB pressed');
           //navigation.navigate('업로드');
           setModalVisible(true);
-        }}></FAB>
+        }} />
       <Modal
         style={{ width: '100%', height: '100%' }}
         animationType="slide"
@@ -119,18 +120,46 @@ function MyBikeScreen({ route, navigation }) {
           </TouchableOpacity>
           <TextInput
             style={styles.input}
-            onChangeHour={onChangeHour}
+            onChangeText={text => setHourFee(text)}
             value={hourFee}
+            placeholderTextColor="black"
             placeholder="  ₩ 시간당 요금을 입력하세요 "
             keyboardType="numeric"
           />
           <TextInput
             style={styles.input}
-            onChangeDay={onChangeDay}
+            onChangeText={text => setDayFee(text)}
             value={dayFee}
             placeholder="  ₩ 하루당 요금을 입력하세요 "
+            placeholderTextColor="black"
             keyboardType="numeric"
           />
+          <Text style={{ alignSelf: 'center', color: 'white' }}>| 장소 선택 |</Text>
+          <View style={styles.buildContainer}>
+            <TouchableOpacity style={styles.buildBtn} onPress={() => setBuilding('N1')}>
+              <Text>N1</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buildBtn} onPress={() => setBuilding('창의학습관')}>
+              <Text>창의</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buildBtn} onPress={() => setBuilding('세종관')}>
+              <Text>세종</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buildBtn} onPress={() => setBuilding('쪽문')}>
+              <Text>쪽문</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buildContainer}>
+            <TouchableOpacity style={styles.buildBtn} onPress={() => setBuilding('응용공학동')}>
+              <Text style={{ color: 'black' }}>응공</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buildBtn} onPress={() => setBuilding('미르관/나래관')}>
+              <Text style={{ color: 'black' }}> 미르 / 나래</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buildBtn} onPress={() => setBuilding('아름관/소망관/사랑관')}>
+              <Text>아름/소망/사랑</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.resBtnContainer}>
             <TouchableOpacity
               style={styles.resBtn}
@@ -158,11 +187,16 @@ function MyBikeScreen({ route, navigation }) {
                       user_name: route.params.user_name,
                       hour_fee: hourFee,
                       day_fee: dayFee,
+                      building: building,
                     }),
                   })
                     .then(res => {
+                      console.log(res)
                     })
                     .catch(error => console.log('error', error));
+                  setBuilding('');
+                  setDayFee('');
+                  setHourFee('');
                   setModalVisible(false);
                 }
               }}>
@@ -179,6 +213,15 @@ const styles = StyleSheet.create({
   wrap: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  buildBtn: {
+    flex: 1,
+    backgroundColor: 'white',
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 5,
+    marginVertical: 10,
   },
   header: {
     marginLeft: 10,
@@ -213,7 +256,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: '#10569B',
     width: 250,
-    height: 350,
+    height: 450,
     marginTop: 120,
     borderRadius: 20,
     alignSelf: 'center',
@@ -255,6 +298,14 @@ const styles = StyleSheet.create({
     borderColor: '#10569B',
     alignSelf: 'center',
     justifyContent: 'center',
+    color: 'black',
+  },
+  buildContainer: {
+    height: 60,
+    width: 200,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignSelf: 'center',
   },
   container: {
     backgroundColor: 'white',
