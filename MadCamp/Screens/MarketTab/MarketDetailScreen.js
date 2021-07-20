@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,17 +7,11 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  TouchableOpacityComponent,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BikeItem from '../../components/BikeItem';
 
 export default function MarketDetailScreen({route, navigation}) {
-  const [heart, setHeart] = useState(false);
-  useEffect(() => {
-    //클릭 시에만 되게 조건 주기
-    route.heartClick = !route.heartClick;
-  });
   return (
     <View style={styles.Container}>
       <View style={styles.Header}>
@@ -28,12 +22,16 @@ export default function MarketDetailScreen({route, navigation}) {
             <Icon name="arrow-back-outline" color={'#0C579F'} size={35} />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.icon} onPress={() => setHeart(!heart)}>
+
+        <View style={styles.TitleOut}>
+          <Text style={styles.Title}> {route.params.itemTitle}</Text>
+        </View>
+        <View style={styles.icon}>
           <Icon
             name={route.heartClick ? 'heart' : 'heart-outline'}
             color="#10569B"
             size={25}></Icon>
-        </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollView>
@@ -41,18 +39,18 @@ export default function MarketDetailScreen({route, navigation}) {
           <Image source={route.params.img} style={styles.UploadImg}></Image>
           <View style={styles.profileContainer}>
             <View style={styles.emailContent}>
-              <Text style={styles.PriceText}> {route.params.itemPrice}</Text>
+              <Text style={styles.DetailText}> {route.params.emailId}</Text>
             </View>
             <View style={styles.ChatOut}>
               <TouchableOpacity
                 style={styles.Chat}
                 onPress={() => navigation.navigate('DealChat')}>
-                <Text style={styles.Chattext}>채팅으로 거래하기</Text>
+                <Text style={styles.Chattext}>채팅하기</Text>
               </TouchableOpacity>
             </View>
           </View>
           <View style={styles.TitleContent}>
-            <Text style={styles.TitleText}> {route.params.itemTitle}</Text>
+            <Text style={styles.TitleText}> {route.params.itemPrice}</Text>
           </View>
           <View style={styles.DetailContent}>
             <Text style={styles.DetailText}> {route.params.itemDetail}</Text>
@@ -115,32 +113,22 @@ const styles = StyleSheet.create({
     padding: 8,
     //flex: 1,
     flexDirection: 'row',
-
-    borderBottomWidth: 0.2,
-    borderColor: '#cfcfcf',
+    //alignItems: 'center',
+    //borderBottomWidth: 0.2,
   },
   TitleContent: {
     //marginLeft: 10,
     padding: 10,
   },
   TitleText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#565759',
+    fontSize: 24,
+    color: '#0C579F',
   },
   DetailContent: {
-    //padding: 5,
-    marginLeft: 15,
-    marginRight: 15,
+    padding: 10,
   },
   DetailText: {
-    fontSize: 18,
-    color: 'gray',
-    lineHeight: 25,
-  },
-  PriceText: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 20,
   },
   emailContent: {
     flex: 4,
@@ -154,7 +142,7 @@ const styles = StyleSheet.create({
   },
   Chat: {
     height: '70%',
-    width: '80%',
+    width: '40%',
     backgroundColor: '#10569B',
     alignItems: 'center', //horizontal
     justifyContent: 'center', //vertical
