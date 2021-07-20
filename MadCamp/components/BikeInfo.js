@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,14 +8,14 @@ import {
   Modal,
 } from 'react-native';
 
-const BikeInfo = ({items, navigation, info}) => {
+const BikeInfo = ({ items, navigation, info }) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => setModalVisible(true)}>
       <Modal
-        style={{width: '90%', height: '90%'}}
+        style={{ width: '90%', height: '90%' }}
         animationType="slide"
         transparent={true}
         visible={modalVisible}>
@@ -37,10 +37,6 @@ const BikeInfo = ({items, navigation, info}) => {
                 </Text>
               </View>
               <Text style={styles.mainModalText}>이름 : {items.userName}</Text>
-              <Text style={styles.mainModalText}>
-                성별 : {items.userGender}
-              </Text>
-              <Text style={styles.mainModalText}>학번 : {items.userSID}</Text>
               <Text style={styles.mainModalText}>평점 : {items.rating}</Text>
               <Text style={styles.mainModalText}>
                 시간당 요금 : {items.hourFee} 원 / 일당 요금 : {items.dayFee} 원
@@ -210,7 +206,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
-  durationText: {fontFamily: 'SpoqaHanSansNeo-Bold'},
+  durationText: { fontFamily: 'SpoqaHanSansNeo-Bold' },
   resBtnContainer: {
     width: '100%',
     height: '10%',

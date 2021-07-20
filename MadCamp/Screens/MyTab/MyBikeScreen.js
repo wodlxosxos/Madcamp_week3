@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   StyleSheet,
   Text,
@@ -12,6 +12,7 @@ import {
   FlatList,
   Modal,
   Image,
+  ToastAndroid,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FAB from 'react-native-fab';
@@ -53,11 +54,11 @@ const data = [
     img: require('../../Image/b5.jpg'),
   },
 ];
-
-function MyBikeScreen({route, navigation}) {
+let dataList = [];
+function MyBikeScreen({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [hourFee, onChangeHour] = React.useState(null);
-  const [dayFee, onChangeDay] = React.useState(null);
+  const [hourFee, onChangeHour] = React.useState('');
+  const [dayFee, onChangeDay] = React.useState('');
   return (
     <SafeAreaView style={styles.wrap}>
       <View style={styles.header}>
@@ -74,7 +75,7 @@ function MyBikeScreen({route, navigation}) {
       </View>
       <FlatList
         data={data}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <View style={styles.container}>
             <Image style={styles.bikeImage} source={item.img} />
             <View style={styles.infoContainer}>
@@ -106,7 +107,7 @@ function MyBikeScreen({route, navigation}) {
           setModalVisible(true);
         }}></FAB>
       <Modal
-        style={{width: '100%', height: '100%'}}
+        style={{ width: '100%', height: '100%' }}
         animationType="slide"
         transparent={true}
         visible={modalVisible}>
@@ -138,7 +139,33 @@ function MyBikeScreen({route, navigation}) {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.resBtn}
-              onPress={() => setModalVisible(false)}>
+              onPress={() => {
+                if (hourFee === '' || dayFee === '') {
+                  ToastAndroid.showWithGravity(
+                    '입력되지 않은 정보가 존재합니다.',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                  );
+                } else {
+                  fetch('http://192.249.18.122:80/regNewRentBike', {
+                    method: 'POST',
+                    headers: {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      user_id: route.params.user_id,
+                      user_name: route.params.user_name,
+                      hour_fee: hourFee,
+                      day_fee: dayFee,
+                    }),
+                  })
+                    .then(res => {
+                    })
+                    .catch(error => console.log('error', error));
+                  setModalVisible(false);
+                }
+              }}>
               <Text style={styles.btnText}>완료</Text>
             </TouchableOpacity>
           </View>

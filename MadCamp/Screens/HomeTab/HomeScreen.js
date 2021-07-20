@@ -18,95 +18,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const markerIcon = require('../../Images/bicycleicon.png');
 const curIcon = require('../../Images/cur_pos_icon.png');
-/*const data = [
-  {
-    title: '참여중인 사람',
 
-    data: [
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 18,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 19,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 18,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 20,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 22,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 18,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 21,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 18,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 18,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 22,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-    ],
-  },
-];
-*/
 async function requestPermission() {
   try {
     return await PermissionsAndroid.request(
@@ -119,7 +31,16 @@ async function requestPermission() {
 let baseHour = 0;
 let dataList = [];
 export default function HomeScreen({ route, navigation }) {
-  const [data, setData] = useState([{ title: '대여 가능한 자전거', data: [] }]);
+  const [data, setData] = useState([{
+    title: '대여 가능한 자전거', data: [{
+      userName: '정승안',
+      userGender: '남자',
+      userSID: 18,
+      hourFee: 400,
+      dayFee: 1200,
+      rating: 4.2,
+    },]
+  }]);
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -357,8 +278,6 @@ export default function HomeScreen({ route, navigation }) {
                           dataList.push({
                             userId: json[i].user_id,
                             userName: json[i].user_name,
-                            userGender: json[i].user_gender,
-                            userSID: String(json[i].user_SID),
                             hourFee: String(json[i].hour_fee),
                             dayFee: String(json[i].day_fee),
                             rating: String(json[i].rating),
