@@ -178,7 +178,8 @@ class Rentalchat extends React.Component {
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
-            _id: 1,
+            _id: this.state.userId,
+            name: this.state.userName,
           }}
           renderBubble={props => {
             return (

@@ -15,8 +15,7 @@ const Messages = [
     recieverName: 'younghoon',
     userImg: require('../assets/users/user-1.jpg'),
     messageTime: '4 mins ago',
-    messageText:
-      'Hey there, this is my test for a post of my social app in React Native.',
+    messageText: 'touch to send message',
   },
 ];
 
