@@ -85,9 +85,8 @@ const BikeInfo = ({ items, navigation, info }) => {
       />
       <View style={styles.infoContainer}>
         <Text style={styles.nameText}>
-          이름 : {items.userName} ({items.userGender})
+          이름 : {items.userName}
         </Text>
-        <Text style={styles.nameText}>학번 : {items.userSID}</Text>
         <Text style={styles.nameText}>평점 : {items.rating}</Text>
         <Text style={styles.nameText}>
           시간당: {items.hourFee} 원 / 일당: {items.dayFee} 원
