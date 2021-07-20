@@ -12,75 +12,53 @@ import {
 const Messages = [
   {
     id: '1',
-    userName: 'Jenny Doe',
+    recieverName: 'younghoon',
     userImg: require('../assets/users/user-1.jpg'),
     messageTime: '4 mins ago',
     messageText:
       'Hey there, this is my test for a post of my social app in React Native.',
   },
-  {
-    id: '2',
-    userName: 'John Doe',
-    userImg: require('../assets/users/user-2.jpg'),
-    messageTime: '2 hours ago',
-    messageText:
-      'Hey there, this is my test for a post of my social app in React Native.',
-  },
-  {
-    id: '3',
-    userName: 'Ken William',
-    userImg: require('../assets/users/user-3.jpg'),
-    messageTime: '1 hours ago',
-    messageText:
-      'Hey there, this is my test for a post of my social app in React Native.',
-  },
-  {
-    id: '4',
-    userName: 'Selina Paul',
-    userImg: require('../assets/users/user-4.jpg'),
-    messageTime: '1 day ago',
-    messageText:
-      'Hey there, this is my test for a post of my social app in React Native.',
-  },
-  {
-    id: '5',
-    userName: 'Christy Alex',
-    userImg: require('../assets/users/user-5.jpg'),
-    messageTime: '2 days ago',
-    messageText:
-      'Hey there, this is my test for a post of my social app in React Native.',
-  },
 ];
-export default function Rentalmessages({route, navigation}) {
-  return (
-    <View style={styles.Container}>
-      <FlatList
-        data={Messages}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            style={styles.Card}
-            onPress={() =>
-              navigation.navigate('Chat', {userName: item.userName})
-            }>
-            <View style={styles.UserInfo}>
-              <View style={styles.UserImgWrapper}>
-                <Image source={item.userImg} style={styles.UserImg} />
-              </View>
-              <View style={styles.TextSection}>
-                <View style={styles.UserInfo}>
-                  <Text style={styles.UserName}>{item.userName}</Text>
-                  <Text style={styles.PostTime}>{item.messageTime}</Text>
+
+class Rentalmessages extends React.Component {
+  render() {
+    const {navigation} = this.props;
+    return (
+      <View style={styles.Container}>
+        <FlatList
+          data={Messages}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={styles.Card}
+              onPress={() =>
+                this.props.navigation.navigate('Chat', {
+                  senderId: 'seungan@',
+                  senderName: 'seungan',
+                  recieverName: item.recieverName,
+                })
+              }>
+              <View style={styles.UserInfo}>
+                <View style={styles.UserImgWrapper}>
+                  <Image source={item.userImg} style={styles.UserImg} />
                 </View>
-                <Text style={styles.MessageText}>{item.messageText}</Text>
+                <View style={styles.TextSection}>
+                  <View style={styles.UserInfo}>
+                    <Text style={styles.UserName}>{item.recieverName}</Text>
+                    <Text style={styles.PostTime}>{item.messageTime}</Text>
+                  </View>
+                  <Text style={styles.MessageText}>{item.messageText}</Text>
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
-    </View>
-  );
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    );
+  }
 }
+
+export default Rentalmessages;
 
 const styles = StyleSheet.create({
   Container: {

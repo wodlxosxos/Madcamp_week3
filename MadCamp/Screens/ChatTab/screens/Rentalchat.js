@@ -20,10 +20,18 @@ import axios from 'axios';
 import io from 'socket.io-client';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function Rentalchat({route, navigation}) {
-  const [messages, setMessages] = useState([]);
+class Rentalchat extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userId: '',
+      userName: '',
+      recieverName: '',
+      messages: [],
+    };
+  }
 
-  const handleChoosePhoto = () => {
+  handleChoosePhoto = () => {
     const options = {
       noData: true,
     };
@@ -56,156 +64,190 @@ export default function Rentalchat({route, navigation}) {
         ToastAndroid.show('Uploading...', ToastAndroid.LONG);
 
         //upload to imgur
-        axios
-          .post('http://192.249.18.145:80/img', formData, axiosConfig)
+        fetch('http://192.249.18.145:80/img', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        })
           .then(res => {
-            if (res.status === 200) {
-              console.log(res.status);
-              let {data} = res;
-              // this.setState({imageURL: data.data.link});
-              const id = this.state.messages.length + 1;
-              let imageMsg = [
-                {
-                  _id: id,
-                  text: '',
-                  createdAt: new Date(),
-                  user: {
-                    _id: this.state.userId,
-                    name: this.state.userName,
-                    avatar: this.state.userPhoto,
-                  },
-                  image: data.data.link,
-                },
-              ];
-
-              this.onSend(imageMsg);
-              imageMsg = [];
-            } else {
-              ToastAndroid.show(
-                'Uploading failed. Try again',
-                ToastAndroid.SHORT,
-              );
+            if (res.status === 400) {
+              ToastAndroid.show('TEST', ToastAndroid.SHORT);
             }
-          });
+            res.json();
+          })
+          .then(json => {})
+          .catch(error => console.log('error', error));
       }
     });
   };
 
-  useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hi',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
+  componentDidMount() {
+    this.setState({
+      userId: this.props.route.params.senderId,
+      userName: this.props.route.params.senderName,
+      recieverName: this.props.route.params.recieverName,
+    });
+
+    this.getMessages();
+  }
+
+  getMessages = () => {
+    fetch(
+      'http://192.249.18.145:80' +
+        '/chats/' +
+        this.props.route.params.senderName +
+        '/' +
+        this.props.route.params.recieverName,
+    )
+      .then(res => {
+        if (res.status === 400) {
+          ToastAndroid.show('2', ToastAndroid.SHORT);
+        } else if (res.status === 200) {
+          ToastAndroid.show('1', ToastAndroid.SHORT);
+          console.log(res.json);
+          res.json().then(json => {
+            this.setState(previousState => ({
+              messages: GiftedChat.append([], json),
+            }));
+          });
+        }
+      })
+      .catch(error => console.log('error', error));
+  };
+
+  async onSend(messages = []) {
+    await this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }));
+    try {
+      let formData = {
+        sender: this.state.userName,
+        reciever: this.state.recieverName,
+        messages: this.state.messages,
+      };
+
+      fetch('http://192.249.18.145:80/chatsend', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      },
-    ]);
-  }, []);
+        body: JSON.stringify(formData),
+      })
+        .then(res => {
+          if (res.status === 400) {
+            ToastAndroid.show('TEST', ToastAndroid.SHORT);
+          } else if (res.status === 200) {
+            ToastAndroid.show('SUCCESS', ToastAndroid.SHORT);
+          }
+        })
+        .catch(error => console.log('error', error));
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, messages),
-    );
-  }, []);
-
-  return (
-    <View style={styles.Out}>
-      <View style={styles.Up}>
-        <TouchableOpacity
-          style={styles.Back}
-          onPress={() => navigation.goBack()}>
-          <Icon name="arrow-back-outline" color={'#0C579F'} size={35} />
-        </TouchableOpacity>
-        <Text>Hi</Text>
-      </View>
-      <GiftedChat
-        style={styles.Chat}
-        messages={messages}
-        onSend={messages => onSend(messages)}
-        user={{
-          _id: 1,
-        }}
-        renderBubble={props => {
-          return (
-            <Bubble
-              {...props}
-              textStyle={{
-                right: {
-                  color: 'white',
-                  fontFamily: 'CerebriSans-Book',
-                },
-                left: {
-                  color: 'white',
-                  fontFamily: 'CerebriSans-Book',
-                },
-              }}
-              wrapperStyle={{
-                left: {
-                  backgroundColor: '#0C579F',
-                },
-                right: {
-                  backgroundColor: '#0C579F',
-                },
-              }}
-            />
-          );
-        }}
-        renderInputToolbar={props => {
-          return (
-            <>
-              <InputToolbar
+  render() {
+    const {navigation, route} = this.props;
+    return (
+      <View style={styles.Out}>
+        <View style={styles.Up}>
+          <TouchableOpacity
+            style={styles.Back}
+            onPress={() => this.props.navigation.goBack()}>
+            <Icon name="arrow-back-outline" color={'#0C579F'} size={35} />
+          </TouchableOpacity>
+          <Text>Hi</Text>
+        </View>
+        <GiftedChat
+          style={styles.Chat}
+          messages={this.state.messages}
+          onSend={messages => this.onSend(messages)}
+          user={{
+            _id: 1,
+          }}
+          renderBubble={props => {
+            return (
+              <Bubble
                 {...props}
-                containerStyle={{
-                  backgroundColor: '#FFFFFF',
-                  borderTopWidth: 0,
-                  marginHorizontal: 5,
-                  marginLeft: '15%',
-                  borderRadius: 80,
-                }}
-                textInputProps={{
-                  style: {
-                    color: '#000',
-                    flex: 1,
-                    alignItems: 'center',
-                    paddingHorizontal: 20,
+                textStyle={{
+                  right: {
+                    color: 'white',
+                    fontFamily: 'CerebriSans-Book',
                   },
-                  multiline: false,
-                  returnKeyType: 'go',
-                  onSubmitEditing: () => {
-                    if (props.text && props.onSend) {
-                      let text = props.text;
-                      props.onSend({text: text.trim()}, true);
-                    }
+                  left: {
+                    color: 'white',
+                    fontFamily: 'CerebriSans-Book',
+                  },
+                }}
+                wrapperStyle={{
+                  left: {
+                    backgroundColor: '#0C579F',
+                  },
+                  right: {
+                    backgroundColor: '#0C579F',
                   },
                 }}
               />
-              <TouchableOpacity
-                style={{
-                  position: 'absolute',
-                  marginLeft: '4%',
-                  marginBottom: '1%',
-                  bottom: 0,
-                }}
-                onPress={handleChoosePhoto}>
-                <Icon
-                  name="image-outline"
-                  style={{
-                    color: '#0C579F',
+            );
+          }}
+          renderInputToolbar={props => {
+            return (
+              <>
+                <InputToolbar
+                  {...props}
+                  containerStyle={{
+                    backgroundColor: '#FFFFFF',
+                    borderTopWidth: 0,
+                    marginHorizontal: 5,
+                    marginLeft: '15%',
+                    borderRadius: 80,
                   }}
-                  size={32}
+                  textInputProps={{
+                    style: {
+                      color: '#000',
+                      flex: 1,
+                      alignItems: 'center',
+                      paddingHorizontal: 20,
+                    },
+                    multiline: false,
+                    returnKeyType: 'go',
+                    onSubmitEditing: () => {
+                      if (props.text && props.onSend) {
+                        let text = props.text;
+                        props.onSend({text: text.trim()}, true);
+                      }
+                    },
+                  }}
                 />
-              </TouchableOpacity>
-            </>
-          );
-        }}
-      />
-    </View>
-  );
+                <TouchableOpacity
+                  style={{
+                    position: 'absolute',
+                    marginLeft: '4%',
+                    marginBottom: '1%',
+                    bottom: 0,
+                  }}
+                  onPress={this.handleChoosePhoto}>
+                  <Icon
+                    name="image-outline"
+                    style={{
+                      color: '#0C579F',
+                    }}
+                    size={32}
+                  />
+                </TouchableOpacity>
+              </>
+            );
+          }}
+        />
+      </View>
+    );
+  }
 }
+export default Rentalchat;
 
 const styles = StyleSheet.create({
   Out: {
