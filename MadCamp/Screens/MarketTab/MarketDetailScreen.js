@@ -46,7 +46,13 @@ export default function MarketDetailScreen({route, navigation}) {
             <View style={styles.ChatOut}>
               <TouchableOpacity
                 style={styles.Chat}
-                onPress={() => navigation.navigate('DealChat')}>
+                onPress={() =>
+                  navigation.navigate('DealChat', {
+                    senderId: 'seungan@',
+                    senderName: 'seungan',
+                    recieverName: 'younghoon',
+                  })
+                }>
                 <Text style={styles.Chattext}>채팅으로 거래하기</Text>
               </TouchableOpacity>
             </View>

@@ -195,13 +195,13 @@ class Rentalchat extends React.Component {
                       fontFamily: 'CerebriSans-Book',
                     },
                     left: {
-                      color: 'white',
+                      color: 'black',
                       fontFamily: 'CerebriSans-Book',
                     },
                   }}
                   wrapperStyle={{
                     left: {
-                      backgroundColor: '#0C579F',
+                      backgroundColor: 'white',
                     },
                     right: {
                       backgroundColor: '#0C579F',
