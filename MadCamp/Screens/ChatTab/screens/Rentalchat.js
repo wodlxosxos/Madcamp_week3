@@ -100,6 +100,7 @@ class Rentalchat extends React.Component {
       this.getMessages();
     });
   }
+  componentWillMount() {}
 
   getMessages = () => {
     fetch(
@@ -164,98 +165,102 @@ class Rentalchat extends React.Component {
   render() {
     const {navigation, route} = this.props;
     return (
-      <View style={styles.Out}>
-        <View style={styles.Up}>
-          <TouchableOpacity
-            style={styles.Back}
-            onPress={() => this.props.navigation.goBack()}>
-            <Icon name="arrow-back-outline" color={'#0C579F'} size={35} />
-          </TouchableOpacity>
-          <Text></Text>
-        </View>
-        <GiftedChat
-          style={styles.Chat}
-          messages={this.state.messages}
-          onSend={messages => this.onSend(messages)}
-          user={{
-            _id: this.state.userId,
-            name: this.state.userName,
-          }}
-          renderBubble={props => {
-            return (
-              <Bubble
-                {...props}
-                textStyle={{
-                  right: {
-                    color: 'white',
-                    fontFamily: 'CerebriSans-Book',
-                  },
-                  left: {
-                    color: 'white',
-                    fontFamily: 'CerebriSans-Book',
-                  },
-                }}
-                wrapperStyle={{
-                  left: {
-                    backgroundColor: '#0C579F',
-                  },
-                  right: {
-                    backgroundColor: '#0C579F',
-                  },
-                }}
-              />
-            );
-          }}
-          renderInputToolbar={props => {
-            return (
-              <>
-                <InputToolbar
+      <>
+        <View style={styles.Out}>
+          <View style={styles.Up}>
+            <TouchableOpacity
+              style={styles.Back}
+              onPress={() => this.props.navigation.goBack()}>
+              <Icon name="arrow-back-outline" color={'#0C579F'} size={35} />
+            </TouchableOpacity>
+            <Text></Text>
+          </View>
+          <GiftedChat
+            alwaysShowSend={true}
+            style={styles.Chat}
+            messages={this.state.messages}
+            renderSend={this.renderSend}
+            onSend={messages => this.onSend(messages)}
+            user={{
+              _id: this.state.userId,
+              name: this.state.userName,
+            }}
+            renderBubble={props => {
+              return (
+                <Bubble
                   {...props}
-                  containerStyle={{
-                    backgroundColor: '#FFFFFF',
-                    borderTopWidth: 0,
-                    marginHorizontal: 5,
-                    marginLeft: '15%',
-                    borderRadius: 80,
-                  }}
-                  textInputProps={{
-                    style: {
-                      color: '#000',
-                      flex: 1,
-                      alignItems: 'center',
-                      paddingHorizontal: 20,
+                  textStyle={{
+                    right: {
+                      color: 'white',
+                      fontFamily: 'CerebriSans-Book',
                     },
-                    multiline: false,
-                    returnKeyType: 'go',
-                    onSubmitEditing: () => {
-                      if (props.text && props.onSend) {
-                        let text = props.text;
-                        props.onSend({text: text.trim()}, true);
-                      }
+                    left: {
+                      color: 'white',
+                      fontFamily: 'CerebriSans-Book',
+                    },
+                  }}
+                  wrapperStyle={{
+                    left: {
+                      backgroundColor: '#0C579F',
+                    },
+                    right: {
+                      backgroundColor: '#0C579F',
                     },
                   }}
                 />
-                <TouchableOpacity
-                  style={{
-                    position: 'absolute',
-                    marginLeft: '4%',
-                    marginBottom: '1%',
-                    bottom: 0,
-                  }}
-                  onPress={this.handleChoosePhoto}>
-                  <Icon
-                    name="image-outline"
-                    style={{
-                      color: '#0C579F',
+              );
+            }}
+            renderInputToolbar={props => {
+              return (
+                <>
+                  <InputToolbar
+                    {...props}
+                    containerStyle={{
+                      backgroundColor: '#FFFFFF',
+                      borderTopWidth: 0,
+                      marginHorizontal: 5,
+                      marginLeft: '15%',
+                      borderRadius: 80,
                     }}
-                    size={32}
+                    textInputProps={{
+                      style: {
+                        color: '#000',
+                        flex: 1,
+                        alignItems: 'center',
+                        paddingHorizontal: 20,
+                      },
+                      multiline: false,
+                      returnKeyType: 'go',
+                      onSubmitEditing: () => {
+                        if (props.text && props.onSend) {
+                          let text = props.text;
+                          props.onSend({text: text.trim()}, true);
+                        }
+                      },
+                    }}
                   />
-                </TouchableOpacity>
-              </>
-            );
-          }}
-        />
-      </View>
+                  <TouchableOpacity
+                    style={{
+                      position: 'absolute',
+                      marginLeft: '4%',
+                      marginBottom: '1%',
+                      bottom: 0,
+                    }}
+                    onPress={this.handleChoosePhoto}>
+                    <Icon
+                      name="image-outline"
+                      style={{
+                        color: '#0C579F',
+                      }}
+                      size={32}
+                    />
+                  </TouchableOpacity>
+                </>
+              );
+            }}
+          />
+        </View>
+      </>
     );
   }
 }
