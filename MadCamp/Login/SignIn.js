@@ -39,10 +39,6 @@ function SignIn({ navigation }) {
           id="loginBtn"
           style={styles.loginBtn}
           onPress={() => {
-            navigation.replace('Main', {
-              user_id: userId,
-              user_password: userPassword,
-            });
             fetch('http://192.249.18.122:80/signIn', {
               method: 'POST',
               headers: {
@@ -54,24 +50,25 @@ function SignIn({ navigation }) {
                 user_password: userPassword,
               }),
             })
-              .then(res => {
-                if (res.status === 200) {
-                  navigation.replace('Main', {
-                    user_id: userId,
-                    user_password: userPassword,
-                  });
-                } else if (res.status === 400) {
+              .then(res => res.json())
+              .then(json => {
+                if (json.user_name === "Wrong ID") {
                   ToastAndroid.showWithGravity(
                     '잘못된 ID입니다.',
                     ToastAndroid.SHORT,
                     ToastAndroid.CENTER,
                   );
-                } else {
+                } else if (json.user_name === "Wrong PW") {
                   ToastAndroid.showWithGravity(
                     '잘못된 Password입니다.',
                     ToastAndroid.SHORT,
                     ToastAndroid.CENTER,
                   );
+                } else {
+                  navigation.replace('Main', {
+                    user_id: userId,
+                    user_name: json.user_name,
+                  });
                 }
               })
               .catch(error => console.log('error', error));

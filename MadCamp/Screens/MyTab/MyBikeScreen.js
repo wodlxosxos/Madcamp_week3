@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   StyleSheet,
   Text,
@@ -34,7 +34,8 @@ const data = [
     img: '../Image/b3.jpg',
   },
 ];
-function MyBikeScreen({navigation}) {
+let dataList = [];
+function MyBikeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [hourFee, onChangeHour] = React.useState(null);
   const [dayFee, onChangeDay] = React.useState(null);
@@ -54,7 +55,7 @@ function MyBikeScreen({navigation}) {
       </View>
       <FlatList
         data={data}
-        renderItem={({item}) => <MyBikeItem items={item} />}
+        renderItem={({ item }) => <MyBikeItem items={item} />}
         keyExtractor={(item, index) => index.toString()}
       />
       <FAB
@@ -68,7 +69,7 @@ function MyBikeScreen({navigation}) {
           setModalVisible(true);
         }}></FAB>
       <Modal
-        style={{width: '100%', height: '100%'}}
+        style={{ width: '100%', height: '100%' }}
         animationType="slide"
         transparent={true}
         visible={modalVisible}>
@@ -76,7 +77,21 @@ function MyBikeScreen({navigation}) {
           <View style={styles.resBtnContainer}>
             <TouchableOpacity
               style={styles.resBtn}
-              onPress={() => setModalVisible(false)}>
+              onPress={() => {
+                setModalVisible(false);
+                fetch('http://192.249.18.122:80/signUp', {
+                  method: 'POST',
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                  }),
+                })
+                  .then(res => {
+                  })
+                  .catch(error => console.log('error', error));
+              }}>
               <Text style={styles.btnText}>완료</Text>
             </TouchableOpacity>
             <TouchableOpacity

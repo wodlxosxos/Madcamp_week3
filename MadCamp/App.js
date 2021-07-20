@@ -1,8 +1,8 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SignHome from './Login/SignHome';
 import ChatScreen from './Screens/ChatTab/ChatScreen';
 import MarketScreen from './Screens/MarketTab/MarketScreen';
@@ -13,14 +13,16 @@ import HomeScreen from './Screens/HomeTab/HomeScreen';
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 
-function MainScreen({navigation}) {
+function MainScreen({ navigation, route }) {
+  const { user_id, user_name } = route.params;
+  console.log(route.params);
   return (
     <NavigationContainer independent={true}>
       <Tabs.Navigator
         initialRouteName="Home"
         backBehavior="none"
-        screenOptions={({route}) => ({
-          tabBarIcon: ({focused, color, size}) => {
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
             if (route.name === 'Home') {
@@ -41,10 +43,38 @@ function MainScreen({navigation}) {
           activeTintColor: 'black',
           inactiveTintColor: 'gray',
         }}>
-        <Tabs.Screen name="Home" component={HomeScreen} />
-        <Tabs.Screen name="Market" component={MarketScreen} />
-        <Tabs.Screen name="Chat" component={ChatScreen} />
-        <Tabs.Screen name="My" component={MyHome} />
+        <Tabs.Screen
+          name="Home"
+          component={HomeScreen}
+          initialParams={{
+            user_id: user_id,
+            user_name: user_name,
+          }}
+        />
+        <Tabs.Screen
+          name="Market"
+          component={MarketScreen}
+          initialParams={{
+            user_id: user_id,
+            user_name: user_name,
+          }}
+        />
+        <Tabs.Screen
+          name="Chat"
+          component={ChatScreen}
+          initialParams={{
+            user_id: user_id,
+            user_name: user_name,
+          }}
+        />
+        <Tabs.Screen
+          name="My"
+          component={MyHome}
+          initialParams={{
+            user_id: user_id,
+            user_name: user_name,
+          }}
+        />
       </Tabs.Navigator>
     </NavigationContainer>
   );
@@ -55,7 +85,7 @@ export default class App extends React.Component {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          screenOptions={{headerShown: false}}
+          screenOptions={{ headerShown: false }}
           initialRouteName="Sign">
           <Stack.Screen name="Sign" component={SignHome} />
           <Stack.Screen name="Main" component={MainScreen} />

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,8 @@ import {
   Image,
 } from 'react-native';
 
-export default function MyScreen({route, navigation}) {
+export default function MyScreen({ route, navigation }) {
+  const { user_id, user_name } = route.params;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -40,7 +41,12 @@ export default function MyScreen({route, navigation}) {
         <View style={styles.rentBtnContainer}>
           <TouchableOpacity
             style={styles.rentBtn}
-            onPress={() => navigation.navigate('MyBike')}>
+            onPress={() =>
+              navigation.navigate('MyBike', {
+                user_id: user_id,
+                user_name: user_name,
+              })
+            }>
             <Text style={styles.rentText}>내 자전거 관리</Text>
           </TouchableOpacity>
         </View>
