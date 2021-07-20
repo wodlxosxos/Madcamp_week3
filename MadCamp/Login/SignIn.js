@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,7 +8,7 @@ import {
   ToastAndroid,
 } from 'react-native';
 
-function SignIn({navigation}) {
+function SignIn({ navigation }) {
   const [userId, setUserId] = useState('');
   const [userPassword, setUserPassword] = useState('');
   return (
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     height: 50,
-    color: 'white',
+    color: 'black',
   },
   forgot: {
     color: 'white',
