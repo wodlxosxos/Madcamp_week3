@@ -32,7 +32,7 @@ class Rentalmessages extends React.Component {
             <TouchableOpacity
               style={styles.Card}
               onPress={() =>
-                this.props.navigation.navigate('Chat', {
+                this.props.navigation.navigate('RentalChat', {
                   senderId: 'seungan@',
                   senderName: 'seungan',
                   recieverName: item.recieverName,

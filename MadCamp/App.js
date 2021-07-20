@@ -40,6 +40,7 @@ function MainScreen({navigation}) {
         tabBarOptions={{
           activeTintColor: 'black',
           inactiveTintColor: 'gray',
+          keyboardHidesTabBar: true,
         }}>
         <Tabs.Screen name="Home" component={HomeScreen} />
         <Tabs.Screen name="Market" component={MarketScreen} />

@@ -92,6 +92,13 @@ class Rentalchat extends React.Component {
     });
 
     this.getMessages();
+
+    this.socket = io('http://192.249.18.145:80/chatsocket');
+    this.socket.connect();
+    this.socket.on('incommingMessage', () => {
+      console.log('called');
+      this.getMessages();
+    });
   }
 
   getMessages = () => {
@@ -122,6 +129,9 @@ class Rentalchat extends React.Component {
     await this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }));
+
+    this.socket.emit('newMessage', 'sent');
+
     try {
       let formData = {
         sender: this.state.userName,
@@ -142,6 +152,7 @@ class Rentalchat extends React.Component {
             ToastAndroid.show('TEST', ToastAndroid.SHORT);
           } else if (res.status === 200) {
             ToastAndroid.show('SUCCESS', ToastAndroid.SHORT);
+            this.socket.emit('newMessage', 'sent');
           }
         })
         .catch(error => console.log('error', error));
@@ -160,7 +171,7 @@ class Rentalchat extends React.Component {
             onPress={() => this.props.navigation.goBack()}>
             <Icon name="arrow-back-outline" color={'#0C579F'} size={35} />
           </TouchableOpacity>
-          <Text>Hi</Text>
+          <Text></Text>
         </View>
         <GiftedChat
           style={styles.Chat}
