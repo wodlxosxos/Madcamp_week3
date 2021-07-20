@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import MyBikeItem from '../../components/MyBikeItem';
 
 const data = [
@@ -36,11 +37,21 @@ function MyBikeScreen({navigation}) {
   return (
     <SafeAreaView style={styles.wrap}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>내 자전거 관리</Text>
+        <View style={styles.BackOut}>
+          <TouchableOpacity
+            style={styles.Back}
+            onPress={() => navigation.goBack()}>
+            <Icon name="arrow-back-outline" color={'#003F5C'} size={35} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.TitleOut}>
+          <Text style={styles.Title}>내 자전거 관리</Text>
+        </View>
       </View>
       <FlatList
         data={data}
         renderItem={({item}) => <MyBikeItem items={item} />}
+        keyExtractor={(item, index) => index.toString()}
       />
     </SafeAreaView>
   );
@@ -52,20 +63,34 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   header: {
-    height: 50,
-    //borderBottomWidth: 0.2,
-    //borderColor: 'gray',
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    marginLeft: 15,
-    marginRight: 15,
+    marginLeft: 10,
+    marginRight: 10,
+    flexDirection: 'row',
     borderBottomWidth: 0.2,
-    borderColor: 'gray',
+    borderColor: '#cfcfcf',
   },
-  headerText: {
+  BackOut: {
+    height: 50,
+  },
+  Back: {
+    height: '100%',
+    width: '100%',
+    alignItems: 'center', //horizontal
+    justifyContent: 'center', //vertical
+  },
+  TitleOut: {
+    height: 50,
+  },
+  Title: {
+    height: '100%',
+    width: '100%',
+    marginTop: 10,
+    marginLeft: 5,
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'black',
+    alignItems: 'flex-start', //horizontal
+    justifyContent: 'center', //vertical
   },
 });
 

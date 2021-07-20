@@ -127,6 +127,7 @@ export default function MarketDeal({route, navigation}) {
         renderItem={({item}) => (
           <BikeItem route={item} navigation={navigation} />
         )}
+        keyExtractor={(item, index) => index.toString()}
       />
       <FAB
         buttonColor="#10569B"
@@ -149,15 +150,13 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 50,
-    //borderBottomWidth: 0.2,
-    //borderColor: 'gray',
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'flex-start',
     marginLeft: 15,
     marginRight: 15,
     borderBottomWidth: 0.2,
-    borderColor: 'gray',
+    borderColor: '#cfcfcf',
   },
   headerText: {
     fontSize: 20,

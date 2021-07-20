@@ -26,25 +26,37 @@ export default function MarketDetailScreen({route, navigation}) {
         <View style={styles.TitleOut}>
           <Text style={styles.Title}> {route.params.itemTitle}</Text>
         </View>
+        <View style={styles.icon}>
+          <Icon
+            name={route.heartClick ? 'heart' : 'heart-outline'}
+            color="#10569B"
+            size={25}></Icon>
+        </View>
       </View>
 
       <ScrollView>
         <View style={styles.Context}>
-          <View>
-            <Image
-              source={require('../../Image/b10.jpg')}
-              style={styles.UploadImg}></Image>
-          </View>
+          <Image
+            source={require('../../Image/b10.jpg')}
+            style={styles.UploadImg}></Image>
           <View style={styles.profileContainer}>
-            <Text> {route.params.emailId}</Text>
+            <View style={styles.emailContent}>
+              <Text style={styles.DetailText}> {route.params.emailId}</Text>
+            </View>
+            <View style={styles.ChatOut}>
+              <TouchableOpacity
+                style={styles.Chat}
+                onPress={() => navigation.navigate('DealChat')}>
+                <Text style={styles.Chattext}>채팅하기</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <Icon
-            //style={styles.icon}
-            name={route.heartClick ? 'heart' : 'heart-outline'}
-            color="#10569B"
-            size={25}></Icon>
-          <Text style={styles.TitleText}> {route.params.itemPrice}</Text>
-          <Text style={styles.DetailText}> {route.params.itemDetail}</Text>
+          <View style={styles.TitleContent}>
+            <Text style={styles.TitleText}> {route.params.itemPrice}</Text>
+          </View>
+          <View style={styles.DetailContent}>
+            <Text style={styles.DetailText}> {route.params.itemDetail}</Text>
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -60,7 +72,7 @@ const styles = StyleSheet.create({
   Context: {
     backgroundColor: 'white',
     flexDirection: 'column',
-    //padding: 20,
+    flex: 3,
   },
   Header: {
     flexDirection: 'row',
@@ -71,7 +83,6 @@ const styles = StyleSheet.create({
   },
   Back: {
     height: '100%',
-    //width: '40%',
     marginLeft: 10,
     alignItems: 'flex-start', //horizontal
     justifyContent: 'center', //vertical
@@ -82,44 +93,65 @@ const styles = StyleSheet.create({
   },
   Title: {
     height: '100%',
-    width: '70%',
+    width: '100%',
     marginTop: 15,
-    //amarginLeft: 40,
     fontSize: 16,
     color: 'black',
     alignItems: 'flex-start', //horizontal
     justifyContent: 'center', //vertical
   },
-  ImgContent: {
-    padding: 20,
+  icon: {
+    marginTop: 10,
+    marginRight: 10,
+    width: 30,
+    flex: 1,
+    alignItems: 'flex-end',
   },
   UploadImg: {
     width: '100%',
     height: 360,
   },
   profileContainer: {
-    padding: 20,
+    padding: 8,
+    //flex: 1,
     flexDirection: 'row',
+    //alignItems: 'center',
+    //borderBottomWidth: 0.2,
   },
-  input: {
-    height: 50,
-    borderBottomWidth: 0.2,
-    borderColor: 'gray',
-  },
-  inputDetail: {
-    height: 300,
-    width: '100%',
-    textAlignVertical: 'top',
-  },
-  TextContainer: {
-    height: 50,
+  TitleContent: {
+    //marginLeft: 10,
+    padding: 10,
   },
   TitleText: {
-    padding: 10,
     fontSize: 24,
+    color: '#0C579F',
+  },
+  DetailContent: {
+    padding: 10,
   },
   DetailText: {
-    padding: 20,
     fontSize: 20,
+  },
+  emailContent: {
+    flex: 4,
+    justifyContent: 'center',
+  },
+  ChatOut: {
+    flex: 4,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  Chat: {
+    height: '70%',
+    width: '40%',
+    backgroundColor: '#10569B',
+    alignItems: 'center', //horizontal
+    justifyContent: 'center', //vertical
+    borderRadius: 18,
+  },
+  Chattext: {
+    color: 'white',
+    fontSize: 15,
   },
 });

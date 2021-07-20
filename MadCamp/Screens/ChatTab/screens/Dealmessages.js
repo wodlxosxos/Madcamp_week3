@@ -61,7 +61,7 @@ export default function Dealmessages({route, navigation}) {
           <TouchableOpacity
             style={styles.Card}
             onPress={() =>
-              navigation.navigate('Chat', {userName: item.userName})
+              navigation.navigate('DealChat', {userName: item.userName})
             }>
             <View style={styles.UserInfo}>
               <View style={styles.UserImgWrapper}>

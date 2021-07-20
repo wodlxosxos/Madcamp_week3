@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const items = [
   {
@@ -35,8 +36,17 @@ function MyRentBikeScreen({navigation}) {
   return (
     <View style={{width: '100%', height: '100%'}}>
       <View style={styles.modalContainer}>
-        <View style={styles.modalTitle}>
-          <Text style={styles.titleText}>대여 중인 자전거</Text>
+        <View style={styles.header}>
+          <View style={styles.BackOut}>
+            <TouchableOpacity
+              style={styles.Back}
+              onPress={() => navigation.goBack()}>
+              <Icon name="arrow-back-outline" color={'#003F5C'} size={35} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.TitleOut}>
+            <Text style={styles.Title}>대여 중인 자전거</Text>
+          </View>
         </View>
         <View style={styles.restContainer}>
           <View style={styles.modalBikeContainer}>
@@ -92,6 +102,36 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
   },
+  header: {
+    marginLeft: 10,
+    marginRight: 10,
+    flexDirection: 'row',
+    borderBottomWidth: 0.2,
+    borderColor: '#cfcfcf',
+  },
+  BackOut: {
+    height: 50,
+  },
+  Back: {
+    height: '100%',
+    width: '100%',
+    alignItems: 'center', //horizontal
+    justifyContent: 'center', //vertical
+  },
+  TitleOut: {
+    height: 50,
+  },
+  Title: {
+    height: '100%',
+    width: '100%',
+    marginTop: 10,
+    marginLeft: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
+    alignItems: 'flex-start', //horizontal
+    justifyContent: 'center', //vertical
+  },
   bikeImage: {
     width: 90,
     height: 90,
@@ -102,9 +142,6 @@ const styles = StyleSheet.create({
     //paddingLeft: 5,
     height: '90%',
     width: '100%',
-  },
-  nameText: {
-    fontFamily: 'SpoqaHanSansNeo-Medium',
   },
   modalContainer: {
     //backgroundColor: '#10569B',
@@ -127,7 +164,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: 'black',
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'SpoqaHanSansNeo-Bold',
   },
   restContainer: {
