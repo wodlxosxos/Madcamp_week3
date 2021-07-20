@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 export default function MyScreen({ route, navigation }) {
-  console.log(route);
+  const { user_id, user_name } = route.params;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -24,8 +24,7 @@ export default function MyScreen({ route, navigation }) {
             />
           </View>
           <View style={styles.infoContainer}>
-            <Text style={styles.infoNameText}>이름 : 윤영훈</Text>
-            <Text style={styles.infoSIDText}>학번 : 18</Text>
+            <Text style={styles.infoNameText}>이름 : {user_name}</Text>
           </View>
         </View>
         <View style={styles.emailContainer}>
@@ -41,7 +40,12 @@ export default function MyScreen({ route, navigation }) {
         <View style={styles.rentBtnContainer}>
           <TouchableOpacity
             style={styles.rentBtn}
-            onPress={() => navigation.navigate('MyBike')}>
+            onPress={() =>
+              navigation.navigate('MyBike', {
+                user_name: user_name,
+                user_id: user_id,
+              })
+            }>
             <Text style={styles.rentText}>내 자전거 관리</Text>
           </TouchableOpacity>
         </View>

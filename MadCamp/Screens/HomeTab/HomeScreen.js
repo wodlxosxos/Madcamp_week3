@@ -18,95 +18,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const markerIcon = require('../../Images/bicycleicon.png');
 const curIcon = require('../../Images/cur_pos_icon.png');
-/*const data = [
-  {
-    title: '참여중인 사람',
 
-    data: [
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 18,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 19,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 18,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 20,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 22,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 18,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 21,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 18,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 18,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-      {
-        userName: '정승안',
-        userGender: '남자',
-        userSID: 22,
-        hourFee: 400,
-        dayFee: 1200,
-        rating: 4.2,
-      },
-    ],
-  },
-];
-*/
 async function requestPermission() {
   try {
     return await PermissionsAndroid.request(
@@ -119,7 +31,9 @@ async function requestPermission() {
 let baseHour = 0;
 let dataList = [];
 export default function HomeScreen({ route, navigation }) {
-  const [data, setData] = useState([{ title: '대여 가능한 자전거', data: [] }]);
+  const [data, setData] = useState([{
+    title: '대여 가능한 자전거', data: []
+  }]);
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
@@ -325,47 +239,18 @@ export default function HomeScreen({ route, navigation }) {
                       dataList = [];
                       setData([{ title: '열려있는 그룹', data: dataList }]);
                     } else {
+                      console.log(json);
                       dataList = [];
                       for (let i = 0; i < json.length; i++) {
-                        const tmpContainer = json[i].table;
-                        let check = true;
-                        for (let j = 0; j < tmpContainer.length; j++) {
-                          const [startTime, endTime] = tmpContainer[j];
-                          const [strYear, strMonth, strDay, strTime] =
-                            startTime.split('/');
-                          const [strHour, strMinute] = strTime.split(':');
-                          const [endYear, endMonth, endDay, pendTime] =
-                            endTime.split('/');
-                          const [endHour, endMinute] = pendTime.split(':');
-                          if (
-                            strYear < strSelYear ||
-                            strMonth < strSelMonth ||
-                            strDay < strSelDay ||
-                            strHour < strSelHour ||
-                            strMinute < strSelMin ||
-                            endYear > endSelYear ||
-                            endMonth > endSelMonth ||
-                            endDay > endSelDay ||
-                            endHour > endSelHour ||
-                            endMinute > endSelMin
-                          ) {
-                            check = false;
-                            break;
-                          }
-                        }
-                        if (check) {
-                          dataList.push({
-                            userId: json[i].user_id,
-                            userName: json[i].user_name,
-                            userGender: json[i].user_gender,
-                            userSID: String(json[i].user_SID),
-                            hourFee: String(json[i].hour_fee),
-                            dayFee: String(json[i].day_fee),
-                            rating: String(json[i].rating),
-                          });
-                          setData([{ title: '열려있는 그룹', data: dataList }]);
-                        }
+                        dataList.push({
+                          userId: json[i].user_id,
+                          userName: json[i].user_name,
+                          hourFee: String(json[i].hour_fee),
+                          dayFee: String(json[i].day_fee),
+                          rating: String(json[i].rating[0]),
+                        });
                       }
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
                       console.log(dataList);
                     }
                   })
@@ -376,37 +261,265 @@ export default function HomeScreen({ route, navigation }) {
               coordinate={{ latitude: 36.3636441, longitude: 127.3591617 }}
               title={'쪽문'}
               icon={markerIcon}
-              onCalloutPress={e => console.log(e)}
+              onCalloutPress={() => {
+                fetch('http://192.249.18.122:80/getRentBike', {
+                  method: 'POST',
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    building_name: '쪽문',
+                  }),
+                })
+                  .then(res => res.json())
+                  .then(json => {
+                    if (json.bikelist === 'no Info') {
+                      ToastAndroid.showWithGravity(
+                        '대여 가능한 자전거가 없습니다.',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                      );
+                      dataList = [];
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                    } else {
+                      console.log(json);
+                      dataList = [];
+                      for (let i = 0; i < json.length; i++) {
+                        dataList.push({
+                          userId: json[i].user_id,
+                          userName: json[i].user_name,
+                          hourFee: String(json[i].hour_fee),
+                          dayFee: String(json[i].day_fee),
+                          rating: String(json[i].rating[0]),
+                        });
+                      }
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                      console.log(dataList);
+                    }
+                  })
+                  .catch(error => console.log('error', error));
+              }}
             />
             <Marker
               coordinate={{ latitude: 36.3708546, longitude: 127.3665032 }}
               title={'세종관'}
               icon={markerIcon}
-              onCalloutPress={e => console.log(e)}
+              onCalloutPress={() => {
+                fetch('http://192.249.18.122:80/getRentBike', {
+                  method: 'POST',
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    building_name: '세종관',
+                  }),
+                })
+                  .then(res => res.json())
+                  .then(json => {
+                    if (json.bikelist === 'no Info') {
+                      ToastAndroid.showWithGravity(
+                        '대여 가능한 자전거가 없습니다.',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                      );
+                      dataList = [];
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                    } else {
+                      console.log(json);
+                      dataList = [];
+                      for (let i = 0; i < json.length; i++) {
+                        dataList.push({
+                          userId: json[i].user_id,
+                          userName: json[i].user_name,
+                          hourFee: String(json[i].hour_fee),
+                          dayFee: String(json[i].day_fee),
+                          rating: String(json[i].rating[0]),
+                        });
+                      }
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                      console.log(dataList);
+                    }
+                  })
+                  .catch(error => console.log('error', error));
+              }}
             />
             <Marker
               coordinate={{ latitude: 36.3706964, longitude: 127.3624517 }}
               title={'창의학습관'}
               icon={markerIcon}
-              onCalloutPress={e => console.log(e)}
+              onCalloutPress={() => {
+                fetch('http://192.249.18.122:80/getRentBike', {
+                  method: 'POST',
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    building_name: '창의학습관',
+                  }),
+                })
+                  .then(res => res.json())
+                  .then(json => {
+                    if (json.bikelist === 'no Info') {
+                      ToastAndroid.showWithGravity(
+                        '대여 가능한 자전거가 없습니다.',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                      );
+                      dataList = [];
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                    } else {
+                      console.log(json);
+                      dataList = [];
+                      for (let i = 0; i < json.length; i++) {
+                        dataList.push({
+                          userId: json[i].user_id,
+                          userName: json[i].user_name,
+                          hourFee: String(json[i].hour_fee),
+                          dayFee: String(json[i].day_fee),
+                          rating: String(json[i].rating[0]),
+                        });
+                      }
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                      console.log(dataList);
+                    }
+                  })
+                  .catch(error => console.log('error', error));
+              }}
             />
             <Marker
               coordinate={{ latitude: 36.37434, longitude: 127.36566 }}
               title={'N1'}
               icon={markerIcon}
-              onCalloutPress={e => console.log(e)}
+              onCalloutPress={() => {
+                fetch('http://192.249.18.122:80/getRentBike', {
+                  method: 'POST',
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    building_name: 'N1',
+                  }),
+                })
+                  .then(res => res.json())
+                  .then(json => {
+                    if (json.bikelist === 'no Info') {
+                      ToastAndroid.showWithGravity(
+                        '대여 가능한 자전거가 없습니다.',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                      );
+                      dataList = [];
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                    } else {
+                      console.log(json);
+                      dataList = [];
+                      for (let i = 0; i < json.length; i++) {
+                        dataList.push({
+                          userId: json[i].user_id,
+                          userName: json[i].user_name,
+                          hourFee: String(json[i].hour_fee),
+                          dayFee: String(json[i].day_fee),
+                          rating: String(json[i].rating[0]),
+                        });
+                      }
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                      console.log(dataList);
+                    }
+                  })
+                  .catch(error => console.log('error', error));
+              }}
             />
             <Marker
               coordinate={{ latitude: 36.3705, longitude: 127.35582 }}
               title={'미르관/나래관'}
               icon={markerIcon}
-              onCalloutPress={e => console.log(e)}
+              onCalloutPress={() => {
+                fetch('http://192.249.18.122:80/getRentBike', {
+                  method: 'POST',
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    building_name: '미르관/나래관',
+                  }),
+                })
+                  .then(res => res.json())
+                  .then(json => {
+                    if (json.bikelist === 'no Info') {
+                      ToastAndroid.showWithGravity(
+                        '대여 가능한 자전거가 없습니다.',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                      );
+                      dataList = [];
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                    } else {
+                      console.log(json);
+                      dataList = [];
+                      for (let i = 0; i < json.length; i++) {
+                        dataList.push({
+                          userId: json[i].user_id,
+                          userName: json[i].user_name,
+                          hourFee: String(json[i].hour_fee),
+                          dayFee: String(json[i].day_fee),
+                          rating: String(json[i].rating[0]),
+                        });
+                      }
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                      console.log(dataList);
+                    }
+                  })
+                  .catch(error => console.log('error', error));
+              }}
             />
             <Marker
               coordinate={{ latitude: 36.3734349, longitude: 127.3573793 }}
               title={'아름관/소망관/사랑관'}
               icon={markerIcon}
-              onCalloutPress={e => console.log(e)}
+              onCalloutPress={() => {
+                fetch('http://192.249.18.122:80/getRentBike', {
+                  method: 'POST',
+                  headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    building_name: '아름관/소망관/사랑관',
+                  }),
+                })
+                  .then(res => res.json())
+                  .then(json => {
+                    if (json.bikelist === 'no Info') {
+                      ToastAndroid.showWithGravity(
+                        '대여 가능한 자전거가 없습니다.',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                      );
+                      dataList = [];
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                    } else {
+                      console.log(json);
+                      dataList = [];
+                      for (let i = 0; i < json.length; i++) {
+                        dataList.push({
+                          userId: json[i].user_id,
+                          userName: json[i].user_name,
+                          hourFee: String(json[i].hour_fee),
+                          dayFee: String(json[i].day_fee),
+                          rating: String(json[i].rating[0]),
+                        });
+                      }
+                      setData([{ title: '열려있는 그룹', data: dataList }]);
+                      console.log(dataList);
+                    }
+                  })
+                  .catch(error => console.log('error', error));
+              }}
             />
           </MapView>
         </View>
