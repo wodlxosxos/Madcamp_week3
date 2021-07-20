@@ -47,7 +47,7 @@ function SignUp({ navigation }) {
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
-            placeholder="Enter StudentID"
+            placeholder="Enter Name"
             placeholderTextColor="#003F5C"
             onChangeText={text => setUserName(text)}
           />
