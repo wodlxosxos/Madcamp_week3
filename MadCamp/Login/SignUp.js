@@ -20,18 +20,18 @@ function SignUp({navigation}) {
     <View style={styles.container}>
       <Text style={styles.logo}>Sign Up</Text>
       <View style={styles.signInputView}>
-        <Text style={styles.signInputText}>Email : </Text>
+        <Text style={styles.signInputText}></Text>
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
-            placeholder="Enter KAIST Email without domain"
+            placeholder="Enter KAIST mail w/o domain"
             placeholderTextColor="#003F5C"
             onChangeText={text => setUserEmail(text)}
           />
         </View>
       </View>
       <View style={styles.signInputView}>
-        <Text style={styles.signInputText}>PW : </Text>
+        <Text style={styles.signInputText}></Text>
         <View style={styles.inputView}>
           <TextInput
             secureTextEntry
@@ -43,7 +43,7 @@ function SignUp({navigation}) {
         </View>
       </View>
       <View style={styles.signInputView}>
-        <Text style={styles.signInputText}>StudentID : </Text>
+        <Text style={styles.signInputText}></Text>
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
@@ -137,23 +137,23 @@ const styles = StyleSheet.create({
   logo: {
     fontWeight: 'bold',
     fontSize: 50,
-    color: 'black',
+    color: '#003f5c',
     marginBottom: 40,
   },
   inputView: {
     width: '60%',
     backgroundColor: 'white',
-    borderColor: 'black',
+    borderColor: '#003f5c',
     borderWidth: 1,
     borderRadius: 25,
     height: 20,
     justifyContent: 'center',
-    marginRight: '15%',
+    marginRight: '19%',
     padding: 20,
   },
   inputText: {
     height: 40,
-    color: 'black',
+    color: '#003f5c',
     fontSize: 12,
   },
   signUpBtn: {
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   loginText: {
-    color: 'black',
+    color: '#003f5c',
     fontWeight: '700',
   },
   signInUp: {
