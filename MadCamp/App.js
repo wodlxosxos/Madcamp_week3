@@ -15,7 +15,6 @@ const Tabs = createBottomTabNavigator();
 
 function MainScreen({ navigation, route }) {
   const { user_id, user_name } = route.params;
-  console.log(route.params);
   return (
     <NavigationContainer independent={true}>
       <Tabs.Navigator

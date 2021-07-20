@@ -65,6 +65,7 @@ function SignIn({ navigation }) {
                     ToastAndroid.CENTER,
                   );
                 } else {
+                  console.log('replace to main');
                   navigation.replace('Main', {
                     user_id: userId,
                     user_name: json.user_name,
