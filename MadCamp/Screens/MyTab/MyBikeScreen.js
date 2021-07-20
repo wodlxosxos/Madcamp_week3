@@ -79,18 +79,6 @@ function MyBikeScreen({ navigation }) {
               style={styles.resBtn}
               onPress={() => {
                 setModalVisible(false);
-                fetch('http://192.249.18.122:80/signUp', {
-                  method: 'POST',
-                  headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                  }),
-                })
-                  .then(res => {
-                  })
-                  .catch(error => console.log('error', error));
               }}>
               <Text style={styles.btnText}>완료</Text>
             </TouchableOpacity>
