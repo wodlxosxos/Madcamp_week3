@@ -15,7 +15,7 @@ import {
 function MyPurchaseCompleteScreen({navigation}) {
   return (
     <SafeAreaView style={styles.wrap}>
-      <Text>판매 중</Text>
+      <Text>구매 완료</Text>
     </SafeAreaView>
   );
 }

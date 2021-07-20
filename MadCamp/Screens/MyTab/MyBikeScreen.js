@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
-  Button,
   StyleSheet,
   Text,
   View,
@@ -11,9 +10,11 @@ import {
   TouchableOpacity,
   SafeAreaView,
   FlatList,
+  Modal,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MyBikeItem from '../../components/MyBikeItem';
+import FAB from 'react-native-fab';
 
 const data = [
   {
@@ -34,6 +35,9 @@ const data = [
   },
 ];
 function MyBikeScreen({navigation}) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [hourFee, onChangeHour] = React.useState(null);
+  const [dayFee, onChangeDay] = React.useState(null);
   return (
     <SafeAreaView style={styles.wrap}>
       <View style={styles.header}>
@@ -53,6 +57,50 @@ function MyBikeScreen({navigation}) {
         renderItem={({item}) => <MyBikeItem items={item} />}
         keyExtractor={(item, index) => index.toString()}
       />
+      <FAB
+        buttonColor="#10569B"
+        iconTextColor="white"
+        visible={true}
+        iconTextComponent={<Icon name="add-outline" size={20} />}
+        onClickAction={() => {
+          //alert('FAB pressed');
+          //navigation.navigate('업로드');
+          setModalVisible(true);
+        }}></FAB>
+      <Modal
+        style={{width: '100%', height: '100%'}}
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}>
+        <View style={styles.modalContainer}>
+          <View style={styles.resBtnContainer}>
+            <TouchableOpacity
+              style={styles.resBtn}
+              onPress={() => setModalVisible(false)}>
+              <Text style={styles.btnText}>완료</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.resBtn}
+              onPress={() => setModalVisible(false)}>
+              <Text style={styles.btnText}>취소</Text>
+            </TouchableOpacity>
+          </View>
+          <TextInput
+            style={styles.input}
+            onChangeHour={onChangeHour}
+            value={hourFee}
+            placeholder="₩ 시간당 요금을 입력하세요 "
+            keyboardType="numeric"
+          />
+          <TextInput
+            style={styles.input}
+            onChangeDay={onChangeDay}
+            value={dayFee}
+            placeholder="₩ 하루당 요금을 입력하세요 "
+            keyboardType="numeric"
+          />
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -91,6 +139,39 @@ const styles = StyleSheet.create({
     color: 'black',
     alignItems: 'flex-start', //horizontal
     justifyContent: 'center', //vertical
+  },
+  modalContainer: {
+    backgroundColor: '#10569B',
+    width: 300,
+    height: 300,
+    marginTop: 150,
+    borderRadius: 20,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  resBtnContainer: {
+    width: '80%',
+    height: '30%',
+    //flexDirection: 'row',
+  },
+  resBtn: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    //backgroundColor: '#10569B',
+    marginHorizontal: 30,
+    marginVertical: 10,
+    borderRadius: 20,
+  },
+  btnText: {
+    color: '#10569B',
+    fontFamily: 'SpoqaHanSansNeo-Bold',
+  },
+  input: {
+    height: 40,
+    backgroundColor: 'white',
   },
 });
 
