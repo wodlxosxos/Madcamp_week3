@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,12 +8,13 @@ import {
   ToastAndroid,
 } from 'react-native';
 
-function SignIn({ navigation }) {
+function SignIn({navigation}) {
   const [userId, setUserId] = useState('');
   const [userPassword, setUserPassword] = useState('');
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>엄복동</Text>
+      <Text style={styles.logo}>UBD</Text>
+      <Text style={styles.smalllogo}>at KAIST</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -90,15 +91,20 @@ function SignIn({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#003F5C',
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
     fontWeight: 'bold',
-    fontSize: 50,
-    color: 'black',
-    marginBottom: 40,
+    fontSize: 60,
+    color: 'white',
+    //marginBottom: 40,
+  },
+  smalllogo: {
+    color: 'white',
+    fontSize: 25,
+    marginBottom: 20,
   },
   inputView: {
     width: '80%',
@@ -112,14 +118,15 @@ const styles = StyleSheet.create({
   },
   inputText: {
     height: 50,
-    color: 'black',
+    color: 'white',
   },
   forgot: {
-    color: 'black',
+    color: 'white',
     fontSize: 11,
   },
   loginBtn: {
     width: '20%',
+    borderColor: 'white',
     borderRadius: 15,
     borderWidth: 1,
     height: 40,
@@ -129,7 +136,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   loginText: {
-    color: 'black',
+    color: 'white',
   },
   signInUp: {
     flexDirection: 'row',

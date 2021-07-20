@@ -15,6 +15,7 @@ import MyBikeScreen from './MyBikeScreen';
 import MyRentBikeScreen from './MyRentBikeScreen';
 import MyReturnScreen from './MyReturnScreen';
 import MyHistoryScreen from './MyHistoryScreen';
+import MarketDetailScreen from '../MarketTab/MarketDetailScreen';
 
 const signStack = createStackNavigator();
 
@@ -37,6 +38,7 @@ function MyHome({ navigation, route }) {
       <signStack.Screen name="MyRentBike" component={MyRentBikeScreen} />
       <signStack.Screen name="MyReturn" component={MyReturnScreen} />
       <signStack.Screen name="MyHistory" component={MyHistoryScreen} />
+      <signStack.Screen name="디테일" component={MarketDetailScreen} />
     </signStack.Navigator>
   );
 }

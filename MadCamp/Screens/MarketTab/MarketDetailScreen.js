@@ -36,9 +36,7 @@ export default function MarketDetailScreen({route, navigation}) {
 
       <ScrollView>
         <View style={styles.Context}>
-          <Image
-            source={require('../../Image/b10.jpg')}
-            style={styles.UploadImg}></Image>
+          <Image source={route.params.img} style={styles.UploadImg}></Image>
           <View style={styles.profileContainer}>
             <View style={styles.emailContent}>
               <Text style={styles.DetailText}> {route.params.emailId}</Text>

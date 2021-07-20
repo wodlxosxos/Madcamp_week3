@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import {
   StyleSheet,
   Text,
@@ -11,31 +11,50 @@ import {
   SafeAreaView,
   FlatList,
   Modal,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MyBikeItem from '../../components/MyBikeItem';
 import FAB from 'react-native-fab';
 
 const data = [
   {
     key: 1,
-    itemTitle: '자전거 헐값에 팔아요',
-    itemPrice: '1,000원',
-    itemDetail: '어제 사고났어요',
-    itemReg: 10,
-    img: '../Image/b5.jpg',
+    bikeID: 1,
+    hourFee: 100,
+    dayFee: 1100,
+    img: require('../../Image/b1.jpg'),
   },
   {
     key: 2,
-    itemTitle: 'UBD 한 거 나눔해요~^^',
-    itemPrice: '200원',
-    itemDetail: '3UBD 한 거라서 조금 사게 팔아요!',
-    itemReg: 10,
-    img: '../Image/b3.jpg',
+    bikeID: 2,
+    hourFee: 200,
+    dayFee: 2200,
+    img: require('../../Image/b2.jpg'),
+  },
+  {
+    key: 3,
+    bikeID: 3,
+    hourFee: 300,
+    dayFee: 3300,
+    img: require('../../Image/b3.jpg'),
+  },
+  {
+    key: 4,
+    bikeID: 4,
+    hourFee: 400,
+    dayFee: 4400,
+    img: require('../../Image/b4.jpg'),
+  },
+  {
+    key: 5,
+    bikeID: 5,
+    hourFee: 500,
+    dayFee: 5500,
+    img: require('../../Image/b5.jpg'),
   },
 ];
-let dataList = [];
-function MyBikeScreen({ navigation }) {
+
+function MyBikeScreen({route, navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [hourFee, onChangeHour] = React.useState(null);
   const [dayFee, onChangeDay] = React.useState(null);
@@ -55,7 +74,25 @@ function MyBikeScreen({ navigation }) {
       </View>
       <FlatList
         data={data}
-        renderItem={({ item }) => <MyBikeItem items={item} />}
+        renderItem={({item}) => (
+          <View style={styles.container}>
+            <Image style={styles.bikeImage} source={item.img} />
+            <View style={styles.infoContainer}>
+              <Text style={styles.titleText}>자전거 ID : {item.bikeID}</Text>
+              <Text style={styles.priceText}>
+                시간당 요금: {item.hourFee}원
+              </Text>
+              <Text style={styles.priceText}>일당 요금 : {item.dayFee}원</Text>
+              <View style={styles.ChatOut}>
+                <TouchableOpacity
+                  style={styles.Chat}
+                  onPress={() => alert('자전거가 삭제되었습니다.')}>
+                  <Text style={styles.Chattext}>삭제</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        )}
         keyExtractor={(item, index) => index.toString()}
       />
       <FAB
@@ -69,39 +106,42 @@ function MyBikeScreen({ navigation }) {
           setModalVisible(true);
         }}></FAB>
       <Modal
-        style={{ width: '100%', height: '100%' }}
+        style={{width: '100%', height: '100%'}}
         animationType="slide"
         transparent={true}
         visible={modalVisible}>
         <View style={styles.modalContainer}>
-          <View style={styles.resBtnContainer}>
-            <TouchableOpacity
-              style={styles.resBtn}
-              onPress={() => {
-                setModalVisible(false);
-              }}>
-              <Text style={styles.btnText}>완료</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.resBtn}
-              onPress={() => setModalVisible(false)}>
-              <Text style={styles.btnText}>취소</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={() => alert('사진 업로드')}>
+            <Image
+              style={styles.uploadImg}
+              source={require('../../Image/camera.jpg')}></Image>
+          </TouchableOpacity>
           <TextInput
             style={styles.input}
             onChangeHour={onChangeHour}
             value={hourFee}
-            placeholder="₩ 시간당 요금을 입력하세요 "
+            placeholder="  ₩ 시간당 요금을 입력하세요 "
             keyboardType="numeric"
           />
           <TextInput
             style={styles.input}
             onChangeDay={onChangeDay}
             value={dayFee}
-            placeholder="₩ 하루당 요금을 입력하세요 "
+            placeholder="  ₩ 하루당 요금을 입력하세요 "
             keyboardType="numeric"
           />
+          <View style={styles.resBtnContainer}>
+            <TouchableOpacity
+              style={styles.resBtn}
+              onPress={() => setModalVisible(false)}>
+              <Text style={styles.btnText}>취소</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.resBtn}
+              onPress={() => setModalVisible(false)}>
+              <Text style={styles.btnText}>완료</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     </SafeAreaView>
@@ -145,24 +185,31 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     backgroundColor: '#10569B',
-    width: 300,
-    height: 300,
-    marginTop: 150,
+    width: 250,
+    height: 350,
+    marginTop: 120,
     borderRadius: 20,
     alignSelf: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
   },
+  uploadImg: {
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
   resBtnContainer: {
-    width: '80%',
-    height: '30%',
-    //flexDirection: 'row',
+    width: '100%',
+    height: '15%',
+    flexDirection: 'row',
   },
   resBtn: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
+    flexDirection: 'row',
     //backgroundColor: '#10569B',
     marginHorizontal: 30,
     marginVertical: 10,
@@ -173,8 +220,60 @@ const styles = StyleSheet.create({
     fontFamily: 'SpoqaHanSansNeo-Bold',
   },
   input: {
-    height: 40,
+    height: 60,
+    width: 200,
     backgroundColor: 'white',
+    borderWidth: 6,
+    borderRadius: 20,
+    borderColor: '#10569B',
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  container: {
+    backgroundColor: 'white',
+    padding: 15,
+    flexDirection: 'row',
+  },
+  bikeImage: {
+    width: 110,
+    height: 110,
+    borderRadius: 10,
+  },
+  infoContainer: {
+    margin: 5,
+    paddingLeft: 10,
+    flexDirection: 'column',
+    height: '70%',
+    width: '100%',
+  },
+  titleText: {
+    fontSize: 15,
+    fontFamily: 'SpoqaHanSansNeo-Medium',
+  },
+  priceText: {
+    color: 'black',
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  ChatOut: {
+    flex: 1,
+    height: 50,
+    //marginTop: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  Chat: {
+    height: '70%',
+    width: '20%',
+    backgroundColor: '#10569B',
+    marginLeft: 20,
+    alignItems: 'center', //horizontal
+    justifyContent: 'center', //vertical
+    borderRadius: 18,
+  },
+  Chattext: {
+    color: 'white',
+    fontSize: 15,
   },
 });
 

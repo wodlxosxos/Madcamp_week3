@@ -14,7 +14,7 @@ const BikeItem = ({route, navigation}) => {
     <TouchableOpacity
       style={styles.container}
       onPress={() => navigation.navigate('디테일', route)}>
-      <Image style={styles.bikeImage} source={require('../Image/b10.jpg')} />
+      <Image style={styles.bikeImage} source={route.img} />
       <View style={styles.infoContainer}>
         <Text style={styles.titleText}>{route.itemTitle}</Text>
         <Text style={styles.priceText}>{route.itemPrice}</Text>
