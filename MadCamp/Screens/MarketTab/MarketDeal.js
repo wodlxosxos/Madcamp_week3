@@ -21,7 +21,7 @@ export default function MarketDeal({route, navigation}) {
       itemTitle: '10년된 자전거 팝니다',
       itemPrice: '100,000원',
       itemDetail:
-        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈의 무대인 메이저리그로 진출해서..',
       itemReg: 10,
       heartClick: false,
       img: require('../../Image/b1.jpg'),
@@ -33,7 +33,7 @@ export default function MarketDeal({route, navigation}) {
       itemTitle: '20년된 자전거 팝니다',
       itemPrice: '200,000원',
       itemDetail:
-        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈의 무대인 메이저리그로 진출해서..',
       itemReg: 10,
       heartClick: false,
       img: require('../../Image/b2.jpg'),
@@ -45,7 +45,7 @@ export default function MarketDeal({route, navigation}) {
       itemTitle: '30년된 자전거 팝니다',
       itemPrice: '300,000원',
       itemDetail:
-        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈의 무대인 메이저리그로 진출해서..',
       itemReg: 10,
       heartClick: false,
       img: require('../../Image/b3.jpg'),
@@ -57,7 +57,7 @@ export default function MarketDeal({route, navigation}) {
       itemTitle: '40년된 자전거 팝니다',
       itemPrice: '400,000원',
       itemDetail:
-        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈의 무대인 메이저리그로 진출해서..',
       itemReg: 10,
       heartClick: false,
       img: require('../../Image/b4.jpg'),
@@ -69,7 +69,7 @@ export default function MarketDeal({route, navigation}) {
       itemTitle: '50년된 자전거 팝니다',
       itemPrice: '500,000원',
       itemDetail:
-        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈의 무대인 메이저리그로 진출해서..',
       itemReg: 10,
       heartClick: false,
       img: require('../../Image/b5.jpg'),
@@ -81,7 +81,7 @@ export default function MarketDeal({route, navigation}) {
       itemTitle: '60년된 자전거 팝니다',
       itemPrice: '600,000원',
       itemDetail:
-        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈의 무대인 메이저리그로 진출해서..',
       itemReg: 10,
       heartClick: false,
       img: require('../../Image/b6.jpg'),
@@ -93,7 +93,7 @@ export default function MarketDeal({route, navigation}) {
       itemTitle: '70년된 자전거 팝니다',
       itemPrice: '700,000원',
       itemDetail:
-        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈의 무대인 메이저리그로 진출해서..',
       itemReg: 10,
       heartClick: false,
       img: require('../../Image/b7.jpg'),
@@ -105,7 +105,7 @@ export default function MarketDeal({route, navigation}) {
       itemTitle: '80년된 자전거 팝니다',
       itemPrice: '800,000원',
       itemDetail:
-        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈의 무대인 메이저리그로 진출해서..',
       itemReg: 10,
       heartClick: false,
       img: require('../../Image/b8.jpg'),
@@ -117,7 +117,7 @@ export default function MarketDeal({route, navigation}) {
       itemTitle: '90년된 자전거 팝니다',
       itemPrice: '900,000원',
       itemDetail:
-        '제가 LA에 있을때는 말이죠 정말 제가 꿈에 무대인 메이저리그로 진출해서..',
+        '제가 LA에 있을때는 말이죠 정말 제가 꿈의 무대인 메이저리그로 진출해서..',
       itemReg: 10,
       heartClick: false,
       img: require('../../Image/b9.jpg'),
