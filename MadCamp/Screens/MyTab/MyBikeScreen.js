@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,49 +17,39 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import FAB from 'react-native-fab';
 
-const data = [
-  {
-    key: 1,
-    bikeID: 1,
-    hourFee: 100,
-    dayFee: 1100,
-    img: require('../../Image/b1.jpg'),
-  },
-  {
-    key: 2,
-    bikeID: 2,
-    hourFee: 200,
-    dayFee: 2200,
-    img: require('../../Image/b2.jpg'),
-  },
-  {
-    key: 3,
-    bikeID: 3,
-    hourFee: 300,
-    dayFee: 3300,
-    img: require('../../Image/b3.jpg'),
-  },
-  {
-    key: 4,
-    bikeID: 4,
-    hourFee: 400,
-    dayFee: 4400,
-    img: require('../../Image/b4.jpg'),
-  },
-  {
-    key: 5,
-    bikeID: 5,
-    hourFee: 500,
-    dayFee: 5500,
-    img: require('../../Image/b5.jpg'),
-  },
-];
 let dataList = [];
 function MyBikeScreen({ route, navigation }) {
+  dataList = route.params.sendData;
   const [modalVisible, setModalVisible] = useState(false);
   const [hourFee, setHourFee] = React.useState('');
   const [dayFee, setDayFee] = React.useState('');
   const [building, setBuilding] = React.useState('');
+  const [data, setData] = React.useState(route.params.sendData);
+  useEffect(() => {
+    let dataList = [];
+    fetch('http://192.249.18.122:80/getMyRentBike', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: route.params.user_id,
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        for (let i = 0; i < json.length; i++) {
+          dataList.push({
+            hourFee: String(json[i].hour_fee),
+            dayFee: String(json[i].day_fee),
+            bikeId: String(json[i].bike_id),
+          });
+        }
+        setData(dataList);
+      })
+      .catch(error => console.log('error', error));
+  }, []);
   return (
     <SafeAreaView style={styles.wrap}>
       <View style={styles.header}>
@@ -78,7 +68,7 @@ function MyBikeScreen({ route, navigation }) {
         data={data}
         renderItem={({ item }) => (
           <View style={styles.container}>
-            <Image style={styles.bikeImage} source={item.img} />
+            <Image style={styles.bikeImage} source={require('../../Images/bicycle_img.jpg')} />
             <View style={styles.infoContainer}>
               <Text style={styles.titleText}>자전거 ID : {item.bikeID}</Text>
               <Text style={styles.priceText}>

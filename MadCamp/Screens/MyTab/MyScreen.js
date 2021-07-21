@@ -40,12 +40,11 @@ export default function MyScreen({ route, navigation }) {
         <View style={styles.rentBtnContainer}>
           <TouchableOpacity
             style={styles.rentBtn}
-            onPress={() =>
+            onPress={() => {
               navigation.navigate('MyBike', {
-                user_name: user_name,
                 user_id: user_id,
-              })
-            }>
+              });
+            }}>
             <Text style={styles.rentText}>내 자전거 관리</Text>
           </TouchableOpacity>
         </View>
