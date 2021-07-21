@@ -6,9 +6,12 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  LogBox,
 } from 'react-native';
 
 export default function MyScreen({ route, navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreAllLogs();
   const { user_id, user_name } = route.params;
   return (
     <View style={styles.container}>
@@ -43,6 +46,7 @@ export default function MyScreen({ route, navigation }) {
             onPress={() => {
               navigation.navigate('MyBike', {
                 user_id: user_id,
+                user_name: user_name,
               });
             }}>
             <Text style={styles.rentText}>내 자전거 관리</Text>

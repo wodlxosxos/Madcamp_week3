@@ -1,8 +1,8 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StyleSheet, Text, View, Image, TouchableOpacity, LogBox } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const items = [
@@ -30,11 +30,13 @@ const info = [
   },
 ];
 
-function MyRentBikeScreen({navigation}) {
+function MyRentBikeScreen({ navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreAllLogs();
   //대여 중인 자전거 하나 받아오기
 
   return (
-    <View style={{width: '100%', height: '100%'}}>
+    <View style={{ width: '100%', height: '100%' }}>
       <View style={styles.modalContainer}>
         <View style={styles.header}>
           <View style={styles.BackOut}>
@@ -231,7 +233,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
-  durationText: {fontFamily: 'SpoqaHanSansNeo-Bold'},
+  durationText: { fontFamily: 'SpoqaHanSansNeo-Bold' },
   resBtnContainer: {
     width: '100%',
     height: '10%',

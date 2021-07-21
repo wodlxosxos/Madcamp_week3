@@ -1,8 +1,8 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   Button,
   SafeAreaView,
@@ -11,6 +11,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  LogBox,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MyOnSaleScreen from './screens/MyOnSaleScreen';
@@ -19,7 +20,9 @@ import MyPurchaseCompleteScreen from './screens/MyPurchaseCompleteScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
-function MyHistoryScreen({navigation}) {
+function MyHistoryScreen({ navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreAllLogs();
   return (
     <SafeAreaView style={styles.wrap}>
       <View style={styles.header}>
@@ -35,10 +38,11 @@ function MyHistoryScreen({navigation}) {
         </View>
       </View>
       <Tab.Navigator
+        backBehavior="none"
         tabBarOptions={{
           activeTintColor: 'black',
-          indicatorStyle: {backgroundColor: '#0C579F'},
-          style: {backgroundColor: 'white'},
+          indicatorStyle: { backgroundColor: '#0C579F' },
+          style: { backgroundColor: 'white' },
         }}>
         <Tab.Screen name="판매 중" component={MyOnSaleScreen} />
         <Tab.Screen name="판매 완료" component={MySaleCompleteScreen} />

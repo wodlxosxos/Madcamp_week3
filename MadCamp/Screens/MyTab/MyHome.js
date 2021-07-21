@@ -10,6 +10,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  LogBox,
 } from 'react-native';
 import MyBikeScreen from './MyBikeScreen';
 import MyRentBikeScreen from './MyRentBikeScreen';
@@ -20,6 +21,8 @@ import MarketDetailScreen from '../MarketTab/MarketDetailScreen';
 const signStack = createStackNavigator();
 
 function MyHome({ navigation, route }) {
+  LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreAllLogs();
   const { user_id, user_name } = route.params;
   console.log(route);
   return (

@@ -13,12 +13,15 @@ import {
   Modal,
   Image,
   ToastAndroid,
+  LogBox,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FAB from 'react-native-fab';
 
 let dataList = [];
 function MyBikeScreen({ route, navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreAllLogs();
   dataList = route.params.sendData;
   const [modalVisible, setModalVisible] = useState(false);
   const [hourFee, setHourFee] = React.useState('');
@@ -87,12 +90,24 @@ function MyBikeScreen({ route, navigation }) {
                       },
                       body: JSON.stringify({
                         user_id: route.params.user_id,
-                        bike_id: item.bikeId,
+                        bike_id: parseInt(item.bikeId),
                       }),
                     })
                       .then(res => res.json())
+                      .then(json => {
+                        let tmpDataList = [];
+                        for (let i = 0; i < json.length; i++) {
+                          tmpDataList.push({
+                            hourFee: String(json[i].hour_fee),
+                            dayFee: String(json[i].day_fee),
+                            bikeId: String(json[i].bike_id),
+                          });
+                        }
+                        setData(tmpDataList);
+                      })
                       .catch(error => console.log('error', error));
-                  }}>
+                  }
+                  }>
                   <Text style={styles.Chattext}>삭제</Text>
                 </TouchableOpacity>
               </View>

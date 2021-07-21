@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   Button,
   SafeAreaView,
@@ -12,6 +12,7 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  LogBox,
 } from 'react-native';
 
 const data = [
@@ -28,12 +29,14 @@ const data = [
   },
 ];
 
-function MySaleCompleteScreen({route, navigation}) {
+function MySaleCompleteScreen({ route, navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreAllLogs();
   return (
     <SafeAreaView style={styles.wrap}>
       <FlatList
         data={data}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.container}
             onPress={() => navigation.navigate('디테일', item)}>

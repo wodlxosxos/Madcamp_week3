@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   Button,
   StyleSheet,
@@ -10,10 +10,13 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  LogBox,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-function MyReturnScreen({navigation}) {
+function MyReturnScreen({ navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreAllLogs();
   return (
     <SafeAreaView style={styles.wrap}>
       <View style={styles.header}>

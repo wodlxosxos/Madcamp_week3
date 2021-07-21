@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   StyleSheet,
   Text,
@@ -13,6 +13,7 @@ import {
   FlatList,
   Modal,
   useState,
+  LogBox,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import BikeItem from '../../../components/BikeItem';
@@ -45,13 +46,15 @@ const data = [
   },
 ];
 
-function MyOnSaleScreen({route, navigation}) {
+function MyOnSaleScreen({ route, navigation }) {
+  LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreAllLogs();
   return (
     <SafeAreaView style={styles.wrap}>
       <FlatList
         //todo: purchasecomplete, salecomplete는 목록에서 제거하기
         data={data}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.container}
             onPress={() => navigation.navigate('디테일', item)}>
