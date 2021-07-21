@@ -13,11 +13,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import BikeItem from '../../components/BikeItem';
 
 export default function MarketDetailScreen({route, navigation}) {
-  //const [heart, setHeart] = useState(false);
-  /*useEffect(() => {
+  const [heart, setHeart] = useState(false);
+  useEffect(() => {
     //클릭 시에만 되게 조건 주기
     route.heartClick = !route.heartClick;
-  });*/
+  });
   return (
     <View style={styles.Container}>
       <View style={styles.Header}>
@@ -38,7 +38,9 @@ export default function MarketDetailScreen({route, navigation}) {
 
       <ScrollView>
         <View style={styles.Context}>
-          <Image source={route.params.img} style={styles.UploadImg}></Image>
+          <Image
+            source={require('../../Images/bicycle_img.jpg')}
+            style={styles.UploadImg}></Image>
           <View style={styles.profileContainer}>
             <View style={styles.emailContent}>
               <Text style={styles.PriceText}> {route.params.itemPrice}</Text>

@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 const BikeItem = ({route, navigation}) => {
   const [heart, setHeart] = useState(false);
+  console.log('route', route);
   useEffect(() => {
     //클릭 시에만 되게 조건 주기
     route.heartClick = !route.heartClick;
@@ -14,7 +15,10 @@ const BikeItem = ({route, navigation}) => {
     <TouchableOpacity
       style={styles.container}
       onPress={() => navigation.navigate('디테일', route)}>
-      <Image style={styles.bikeImage} source={route.img} />
+      <Image
+        style={styles.bikeImage}
+        source={require('../Images/bicycle_img.jpg')}
+      />
       <View style={styles.infoContainer}>
         <Text style={styles.titleText}>{route.itemTitle}</Text>
         <Text style={styles.priceText}>{route.itemPrice}</Text>

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  ToastAndroid,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -33,7 +34,33 @@ export default function UploadScreen({route, navigation}) {
         <View style={styles.CompleteOut}>
           <TouchableOpacity
             style={styles.Complete}
-            onPress={() => navigation.goBack()}>
+            onPress={() => {
+              console.log(titletext);
+              fetch('http://192.249.18.131:80/marketreg', {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  item_title: titletext,
+                  item_price: number,
+                  item_detail: detailtext,
+                  item_heart: false,
+                  mkType: 'none',
+                }),
+              })
+                .then(res => {
+                  if (res.status === 200) {
+                    ToastAndroid.show('success', ToastAndroid.SHORT);
+                  } else {
+                    ToastAndroid.show('fail', ToastAndroid.SHORT);
+                  }
+                })
+                .catch(error => console.log('error', error));
+
+              navigation.goBack();
+            }}>
             <Text style={styles.Completetext}>완료</Text>
           </TouchableOpacity>
         </View>
@@ -49,7 +76,7 @@ export default function UploadScreen({route, navigation}) {
           </TouchableOpacity>
           <TextInput
             style={styles.input}
-            onChangeTitle={onChangeTitle}
+            onChangeText={onChangeTitle}
             value={titletext}
             placeholder="글 제목을 입력하세요"
           />
@@ -62,7 +89,7 @@ export default function UploadScreen({route, navigation}) {
           />
           <TextInput
             style={styles.inputDetail}
-            onChangeDetail={onChangeDetail}
+            onChangeText={onChangeDetail}
             value={detailtext}
             placeholder="게시글 내용을 작성하세요"
             multiline={true}
