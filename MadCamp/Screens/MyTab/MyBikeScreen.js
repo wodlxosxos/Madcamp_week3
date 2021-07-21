@@ -70,7 +70,7 @@ function MyBikeScreen({ route, navigation }) {
           <View style={styles.container}>
             <Image style={styles.bikeImage} source={require('../../Images/bicycle_img.jpg')} />
             <View style={styles.infoContainer}>
-              <Text style={styles.titleText}>자전거 ID : {item.bikeID}</Text>
+              <Text style={styles.titleText}>자전거 ID : {item.bikeId}</Text>
               <Text style={styles.priceText}>
                 시간당 요금: {item.hourFee}원
               </Text>
@@ -78,7 +78,21 @@ function MyBikeScreen({ route, navigation }) {
               <View style={styles.ChatOut}>
                 <TouchableOpacity
                   style={styles.Chat}
-                  onPress={() => alert('자전거가 삭제되었습니다.')}>
+                  onPress={() => {
+                    fetch('http://192.249.18.122:80/delMyRentBike', {
+                      method: 'POST',
+                      headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        user_id: route.params.user_id,
+                        bike_id: item.bikeId,
+                      }),
+                    })
+                      .then(res => res.json())
+                      .catch(error => console.log('error', error));
+                  }}>
                   <Text style={styles.Chattext}>삭제</Text>
                 </TouchableOpacity>
               </View>
@@ -181,7 +195,30 @@ function MyBikeScreen({ route, navigation }) {
                     }),
                   })
                     .then(res => {
-                      console.log(res)
+                      fetch('http://192.249.18.122:80/getMyRentBike', {
+                        method: 'POST',
+                        headers: {
+                          Accept: 'application/json',
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          user_id: route.params.user_id,
+                        }),
+                      })
+                        .then(res => res.json())
+                        .then(json => {
+                          console.log(json);
+                          let tmpDataList = [];
+                          for (let i = 0; i < json.length; i++) {
+                            tmpDataList.push({
+                              hourFee: String(json[i].hour_fee),
+                              dayFee: String(json[i].day_fee),
+                              bikeId: String(json[i].bike_id),
+                            });
+                          }
+                          setData(tmpDataList);
+                        })
+                        .catch(error => console.log('error', error));
                     })
                     .catch(error => console.log('error', error));
                   setBuilding('');
